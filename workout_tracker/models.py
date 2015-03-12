@@ -11,12 +11,12 @@ class user (models.Model):
 	gender = models.CharField(max_length=1, choices=Genders)
 	email = models.CharField(max_length=50)
 
-class client(user):
+class Client(user):
 	health_issues = models.CharField(max_length=2000)
 	weight = models.FloatField()
 	height = models.FloatField()
 
-class trainer(user):
+class Trainer(user):
     phone = models.CharField(max_length=30)
     experience = models.CharField(max_length=2000)
     education = models.CharField(max_length=2000)
