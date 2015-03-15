@@ -13,6 +13,10 @@ urlpatterns = patterns('',
     url(r'^$', include('workout_tracker.urls')),
 	url(r'^workout_tracker/', include('workout_tracker.urls')),
 
+        url(r'^pending_requests/$', views.view_pending),
+        url(r'^my_clients/$', views.view_clients),
+        url(r'^trainer_profile/$',views.view_trainerprofile),
+        url(r'^search/$', views.search),
     #url(r'^register/', views.register, name='register'),
 
 )

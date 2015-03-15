@@ -184,11 +184,9 @@ def search(request):
     query=request.GET['query']
     result = Trainer.objects.none()
     for q in query.split(' '):
-      result |= Trainer.objects.filter(user__first_name__icontains=q)
+      result |= Trainer.objects.filter(user__name__icontains=q)
 
   return HttpResponse([r.user.username for r in result])
-
-
       
 
 
