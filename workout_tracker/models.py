@@ -1,26 +1,29 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 # Create your models here.
-class Myuser (User):
-    
-    date_of_birth = models.DateField()
-    Genders= (
+class user (models.Model):
+	name = models.CharField(max_length=100)
+	username=models.CharField(max_length=100)
+	date_of_birth = models.DateField()
+	email = models.EmailField()
+	password=models.CharField(max_length=50)
+	Genders = (
         ('F', 'Female'),
         ('M', 'Male'),
         )
-    gender = models.CharField(max_length=1, choices=Genders)
+	gender = models.CharField(max_length=1, choices=Genders)
+	
 
-class Trainer(models.Model):
-    user = models.OneToOneField(Myuser, related_name='trainer')
+class client(user):
+	health_issues = models.CharField(max_length=2000)
+	weight = models.FloatField()
+	height = models.FloatField()
+
+class trainer(user):
     phone = models.CharField(max_length=30)
     experience = models.CharField(max_length=2000)
     education = models.CharField(max_length=2000)
 
 
-class Client(models.Model):
-    user = models.OneToOneField(Myuser, related_name='client')
-    trainer = models.ForeignKey(Trainer, related_name='clients', null=True, blank=True)
-    health_issues = models.CharField(max_length=2000)
-    weight = models.FloatField()
-    height = models.FloatField()
+
+
