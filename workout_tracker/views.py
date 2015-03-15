@@ -101,6 +101,13 @@ def show(request):
 
     return render_to_response('friends.html', {"user":first_user}, context_instance=RequestContext(request))
 
+def view_trainerprofile(request):
+	user = {
+	  "name":"seif",
+	  "email":"seif@gmail.com"
+	 }
+
+	return render(request, 'trainer_profile.html', {"user":user})
 # Create your views here.
 def index(request):
     return render(request, 'workout_tracker/index.html')
