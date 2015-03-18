@@ -18,9 +18,9 @@ body{
 
 
 
-    <form method='post' action ="{% url 'search' user__first_name %}">{% csrf_token %}
-    <input type="email" name="searchuser" placeholder="Trainer's Name">
-    <input type="submit" value="Search">
+    <form method='get' action ="{% url 'search' %}">{% csrf_token %}
+    	<input type="text" name="query" placeholder="Trainer's Name">
+    	<input type="submit" value="Search">
     </form>
 
 
