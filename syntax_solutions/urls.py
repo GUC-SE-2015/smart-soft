@@ -1,3 +1,5 @@
+
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from workout_tracker import views
@@ -8,15 +10,15 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^friends/', include(admin.site.urls)),
-    url(r'^$', 'workout_tracker.views.show'),
+    #url(r'^$', 'workout_tracker.views.show'),
+    url(r'^$', include('workout_tracker.urls')),
+	url(r'^workout_tracker/', include('workout_tracker.urls')),
+
+        url(r'^pending_requests/$', views.view_pending),
+        url(r'^my_clients/$', views.view_clients),
+        url(r'^trainer_profile/$',views.view_trainerprofile),
+        url(r'^search/$', views.search),
+    #url(r'^register/', views.register, name='register'),
+ url(r'^login/$', views.user_login, name='login'),
+   
 )
-urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
-    url(r'^about/$', views.about, name='about'),
-    url(r'^category/(?P<category_name_url>\w+)$', views.category, name='category'),
-    url(r'^add_category/$', views.add_category, name='add_category'),
-    url(r'^category/(?P<category_name_url>\w+)/add_page/$', views.add_page, name='add_page'),
-    url(r'^register/$', views.register, name='register'),
-    url(r'^login/$', views.user_login, name='login'),
-    )
