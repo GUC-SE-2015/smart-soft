@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
@@ -16,8 +17,8 @@ urlpatterns = patterns('',
         url(r'^pending_requests/$', views.view_pending),
         url(r'^my_clients/$', views.view_clients),
         url(r'^trainer_profile/$',views.view_trainerprofile),
+        url(r'^client_profile/$',views.view_clientprofile),
         url(r'^search/$', views.search),
     #url(r'^register/', views.register, name='register'),
 
 )
-
