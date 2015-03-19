@@ -1,4 +1,5 @@
 
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from workout_tracker import views
@@ -18,6 +19,6 @@ urlpatterns = patterns('',
         url(r'^trainer_profile/$',views.view_trainerprofile),
         url(r'^search/$', views.search),
     #url(r'^register/', views.register, name='register'),
-
+ url(r'^login/$', views.user_login, name='login'),
+   
 )
-
