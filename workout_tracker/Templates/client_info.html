@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Workout-Tracker</title>
+    </head>
+
+    <body>
+        <h1>Complete your info</h1>
+
+        {% if registered %}
+        <strong>Thank you for Signing Up!</strong>
+        <a href="">Return to the homepage.</a><br />
+        {% else %}
+        <strong>Complete your info!</strong><br />
+
+        <form id="client_form" method="post" action="/workout_tracker/client_info/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            {{ client_form.as_p }}
+            
+
+            <!--{% for f in friend_requests %}
+                {{ f.requester.first_name }}
+                <div>
+                    <a href="/accept/{{ f.id }}/">Accept</a>
+                    <a href="/reject/">Reject</a>
+                </div>
+                Noha
+            {% endfor %} -->
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Join" />
+        </form>
+        {% endif %}
+        
+    </body>
+</html>

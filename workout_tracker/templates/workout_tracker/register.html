@@ -1,0 +1,52 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Workout-Tracker</title>
+    </head>
+
+    <body>
+        <h1>Sign-Up with Workout-Tracker</h1>
+
+        {% if registered %}
+        <strong>Thank you for Signing Up!</strong>
+        <a href="">Return to the homepage.</a><br />
+        {% else %}
+        <strong>Sign-Up here!</strong><br />
+
+        <form id="user_form" method="post" action="/workout_tracker/register/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            {{ user_form.as_p }}
+            
+
+            <!-- Provide a button to click to submit the form. -->
+        </form>
+        
+        <input type="submit" name="submit" id='submit_trainer' value="Sign-Up as a trainer" />
+        <input type="submit" name="submit" id='submit_client' value="Sign-Up as  a client" />
+
+        <script src="{% static 'jquery.js' %}"></script>
+        <script type="text/javascript">
+
+        $('#submit_trainer').click(function(){
+            $('#user_form').attr('action',$('#user_form').attr('action')+'trainer/')
+            $('#user_form').submit()
+        })
+
+        $('#submit_client').click(function(){
+            $('#user_form').attr('action',$('#user_form').attr('action')+'client/')
+            $('#user_form').submit()
+        })
+
+        </script>
+        {% endif %}
+
+    </body>
+</html>
