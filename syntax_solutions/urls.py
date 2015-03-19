@@ -18,7 +18,7 @@ urlpatterns = patterns('',
         url(r'^my_clients/$', views.view_clients),
         url(r'^trainer_profile/$',views.view_trainerprofile),
         url(r'^search/$', views.search),
-    #url(r'^register/', views.register, name='register'),
- url(r'^login/$', views.user_login, name='login'),
-   
+    url(r'^register/', views.register, name='register'),
+    url(r'^login/$', views.user_login, name='login'),   
+    url(r'^logout/$', views.user_logout, name='logout')
 )
