@@ -1,68 +1,33 @@
-from django.shortcuts import render, render_to_response
-from django.template import RequestContext
-from django.contrib.auth.models import User
-from friendship.models import Friend, Follow
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import Context, RequestContext
 
-def my_view(request):
-    # List of this user's friends
-    all_friends = Friend.objects.friends(request.user)
+# Create your views here.
+from models import Trainer
 
-    # List all unread friendship requests
-    requests = Friend.objects.unread_requests(user=request.user)
+def search(request):
+  if request.GET:
+    query=request.GET['query']
+    result = Trainer.objects.none()
+    for q in query.split(' '):
+      result |= Trainer.objects.filter(user__first_name__icontains=q)
 
-    # List all rejected friendship requests
-    rejects = Friend.objects.rejected_requests(user=request.user)
+  return HttpResponse([r.user.username for r in result])
 
-    # Count of all rejected friendship requests
-    reject_count = Friend.objects.rejected_request_count(user=request.user)
 
-    # List all unrejected friendship requests
-    unrejects = Friend.objects.unrejected_requests(user=request.user)
+      
 
-    # Count of all unrejected friendship requests
-    unreject_count = Friend.objects.unrejected_request_count(user=request.user)
+def home(request):
+  return render_to_response('home.html', {}, context_instance=RequestContext(request))
 
-    # List all sent friendship requests
-    sent = Friend.objects.sent_requests(user=request.user)
+  
 
-    # List of this user's followers
-    all_followers = Following.objects.followers(request.user)
 
-    # List of who this user is following
-    following = Following.objects.following(request.user)
-
-    ### Managing friendship relationships
-
-    # Create a friendship request
-    other_user = User.objects.get(pk=1)
-    new_relationship = Friend.objects.add_friend(request.user, other_user)
-
-    # Can optionally save a message when creating friend requests
-    message_relationship = Friend.objects.add_friend(
-        from_user=request.user,
-        to_user=some_other_user,
-        message='Hi, I would like to be your friend',
-    )
-
-    # And immediately accept it, normally you would give this option to the user
-    new_relationship.accept()
-
-    # Now the users are friends
-    Friend.objects.are_friends(request.user, other_user) == True
-
-    # Remove the friendship
-    Friend.objects.remove_friend(other_user, request.user)
-
-    # Create request.user follows other_user relationship
-    following_created = Following.objects.add_follower(request.user, other_user)
-
-def show(request):
-	if not User.objects.all():
-		first_user = User.objects.create_superuser('Noha','noha-gomaa@gmail.com','pass')
-		first_user.save()
-		sec_user = User.objects.create_user('Soad','noha-g@gmail.com','pass')
-		sec_user.save()
-		new_relationship = Friend.objects.add_friend(first_user, sec_user)
-		new_relationship.accept()
-	#friends.objects
-	return render_to_response('friends.html', {}, context_instance=RequestContext(request))
+def data(request):
+  Trainer.object.delete.all()
+  user = User(date_of_birth='1994-1-1',gender='Female')
+  trainer = Trainer(user=user, experience='lalalala',phone='01010108090',education='hahahahha')
+  user= User(date_of_birth='1993-3-12',gender='Male')
+  trainer = Trainer(user=user,phone='012387363',experience='lelelelle',education='hehehehehe')
+  return HttpResponse('sucess')
