@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
@@ -31,4 +32,3 @@ def data(request):
   user= User(date_of_birth='1993-3-12',gender='Male')
   trainer = Trainer(user=user,phone='012387363',experience='lelelelle',education='hehehehehe')
   return HttpResponse('sucess')
-

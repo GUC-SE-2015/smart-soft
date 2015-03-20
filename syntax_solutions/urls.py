@@ -11,4 +11,4 @@ urlpatterns = patterns('',
     url(r'^home/$', home),
     url(r'^home/search/$', search, name='search'),
 
-)
+
