@@ -8,7 +8,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^home/$', home),
-    url(r'^home/search/$', search, name='search'),
 
+    url(r'^friends/', include(admin.site.urls)),
+    url(r'^$', 'workout_tracker.views.show'),
+)
 

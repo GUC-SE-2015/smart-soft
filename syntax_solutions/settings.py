@@ -87,5 +87,9 @@ STATIC_URL = '/static/'
 
 
 
+
+
+
+
 TEMPLATE_CONTEXT_PROCESSORS=TCP+('django.core.context_processors.request',)
 
