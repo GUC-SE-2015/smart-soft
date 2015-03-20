@@ -13,7 +13,7 @@ body{
 }
 /*---- Header part Starts Here -----*/
 .header{
-	background: url(../images/colman2.jpg)no-repeat;
+	background: url(../images/1212.jpg)no-repeat;
 	background-size: cover;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -306,7 +306,7 @@ a#sTop {
 	display: block;
 	position: relative;
 	margin: 0 auto;
-	background: transparent url(../images/colman.jpg) no-repeat center center;
+	background: transparent url(../images/pic11.jpg) no-repeat center center;
 	margin-bottom: 5px;
 	background-size:contain;
 }
@@ -316,7 +316,7 @@ a#sTop {
 	display: block;
 	position: relative;
 	margin: 0 auto;
-	background: transparent url(../images/colman2.jpg) no-repeat center center;
+	background: transparent url(../images/pic10.jpg) no-repeat center center;
 	margin-bottom: 5px;
 	background-size:contain;
 }
@@ -336,7 +336,7 @@ a#sTop {
 	display: block;
 	position: relative;
 	margin: 0 auto;
-	background: transparent url(../images/Ronnie-Coleman.jpg) no-repeat center center;
+	background: transparent url(../images/pic15.jpg) no-repeat center center;
 	margin-bottom: 5px;
 	background-size:contain;
 }
@@ -371,7 +371,7 @@ a#sTop {
 	background-size:contain;
 }
 .ca-item-2 .ca-icon{
-	background-image:url(../images/colman2.jpg);
+	background-image:url(../images/pic10.jpg);
 }
 .ca-item-2 .ca-icon1{
 	background-image:url(../images/pic1.jpg);
@@ -380,7 +380,7 @@ a#sTop {
 	background-image:url(../images/pic13.jpg);
 }
 .ca-item-2 .ca-icon3{
-	background-image:url(../images/colman2.jpg);
+	background-image:url(../images/pic10.jpg);
 }
 .ca-item-2 .ca-icon4{
 	background-image:url(../images/pic13.jpg);
@@ -389,13 +389,13 @@ a#sTop {
 	background-image:url(../images/pic12.jpg);
 }
 .ca-item-2 .ca-icon6{
-	background-image:url(../images/colman.jpg);
+	background-image:url(../images/pic11.jpg);
 }
 .ca-item-2 .ca-icon7{
-	background-image:url(../images/Ronnie-Coleman.jpg);
+	background-image:url(../images/pic15.jpg);
 }
 .ca-item-3 .ca-icon{
-	background-image:url(../images/Ronnie-Coleman.jpg);
+	background-image:url(../images/pic15.jpg);
 }
 .ca-item-4 .ca-icon{
 	background-image:url(../images/pic9.jpg);

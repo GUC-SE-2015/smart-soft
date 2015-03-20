@@ -3,8 +3,10 @@ from django.shortcuts import render
 def view_trainerprofile(request):
       #user = request.User.trainer     
     user = {
-      "name":"seif",
-      "email":"seif@gmail.com"
+      "name":"Ronnie Coleman",
+      "email":"Coleman@gmail.com",
+      "phone":"0123456789",
+      "experience": "10 years working as a trainer",
      }
     
     return render(request,'trainer_profile.html', {"user":user})
@@ -12,7 +14,11 @@ def view_trainerprofile(request):
 def view_clientprofile(request):
     user = {
     "name":"keshk",
-    "email":"keshk@gmail.com"
+    "email":"keshk@gmail.com",
+    "phone":"0123456789",
+    "height": "170 CM",
+    "weight":"67 KG",
+
     }
     
     return render(request,'client_profile.html',{"user":user})
