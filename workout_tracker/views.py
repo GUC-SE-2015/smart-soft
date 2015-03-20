@@ -5,9 +5,9 @@ from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from workout_tracker.forms import CustomUserForm, TrainerUserForm, ClientUserForm
-from django.http import HttpResponse
 from models import Trainer, MyUser
 from friendship.models import FriendshipRequest
+from django.contrib.auth import logout 
 
 
 def view_trainerprofile(request):
@@ -167,7 +167,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect('/workout/')
+                return HttpResponseRedirect('Homepage.html')
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your workout account is disabled.")
@@ -182,6 +182,14 @@ def user_login(request):
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
         return render_to_response('login.html', {}, context)
+
+
+def user_logout(request):
+    # Since we know the user is logged in, we can now just log them out.
+    logout(request)
+
+    # Take the user back to the homepage.
+    return HttpResponseRedirect('/')         
 
 
 
@@ -306,11 +314,13 @@ def show(request):
 
     return render_to_response('friends.html', {"user":first_user}, context_instance=RequestContext(request))
 
-# Create your views here.
+
 def index(request):
     return render(request, 'workout_tracker/index.html')
 
 
+def homepage(request):
+	return render(request,'Homepage.html')
 
 
 def data(request):

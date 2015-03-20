@@ -21,4 +21,10 @@ class ClientUserForm(forms.ModelForm):
 		exclude = ['user', 'trainer']
 
 
+
+
+    
+
+
+
  
