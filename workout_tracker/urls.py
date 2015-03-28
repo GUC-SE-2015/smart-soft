@@ -3,6 +3,7 @@ from django.contrib import admin
 from workout_tracker import views
 
 urlpatterns = patterns('',
+    
         url(r'^$', views.index, name='index'),
     	url(r'^register/$', views.register, name='register'),
         url(r'^login/$', views.user_login, name='login'),
@@ -14,6 +15,8 @@ urlpatterns = patterns('',
     	url(r'^view_pending/$', views.view_pending, name='view_pending'),
     	url(r'^accept/(?P<pid>\d+)$', views.accept, name='accept'),
     	url(r'^reject/(?P<pid>\d+)$', views.reject, name='reject'),
+        url(r'^trainer_profile/$',views.view_trainerprofile, name='trainer_profile'),
+        url(r'^client_profile/$',views.view_clientprofile, name='client_profile'),
 
     	
     	url(r'^data/$', views.data, name='data'),

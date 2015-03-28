@@ -5,18 +5,35 @@ from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from workout_tracker.forms import CustomUserForm, TrainerUserForm, ClientUserForm
-from models import Trainer, MyUser
+from models import Trainer, MyUser, Client
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout 
 
 
 def view_trainerprofile(request):
-    user = {
-      "name":"seif",
-      "email":"seif@gmail.com"
-     }
 
-    return render(request, 'trainer_profile.html', {"user":user})
+    user = {
+      "name":"Ronnie Coleman",
+      "email":"Coleman@gmail.com",
+      "phone":"0123456789",
+      "experience": "10 years working as a trainer",
+     }
+    
+    return render(request,'trainer_profile.html', {"user":user})
+
+
+def view_clientprofile(request):
+
+    user = {
+    "name":"keshk",
+    "email":"keshk@gmail.com",
+    "phone":"0123456789",
+    "height": "170 CM",
+    "weight":"67 KG",
+
+    }
+    
+    return render(request,'client_profile.html',{"user":user})   
 
 
 def provide_trainer_info(request, user=None, register=False):
@@ -28,10 +45,12 @@ def provide_trainer_info(request, user=None, register=False):
     registered = False
 
     # If it's a HTTP POST, we're interested in processing form data.
-    if not register and request.POST:
+    if not register and request.method =='POST' :
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
-        trainer_form = TrainerUserForm(request.POST)
+        user = MyUser.objects.get(pk=request.POST['user_id'])
+        trainer = Trainer(user=user)
+        trainer_form = TrainerUserForm(request.POST, instance=trainer)
         ##################################################profile_form = userForm(data=request.POST)
 
         # If the two forms are valid...
@@ -77,7 +96,7 @@ def provide_trainer_info(request, user=None, register=False):
     # Render the template depending on the context.
     return render_to_response(
             'trainer_info.html',
-            {'trainer_form': trainer_form, 'registered': registered},
+            {'trainer_form': trainer_form, 'user':user, 'registered': registered},
             context)    
 
 def provide_client_info(request, user=None, register=False):
@@ -89,10 +108,12 @@ def provide_client_info(request, user=None, register=False):
     registered = False
 
     # If it's a HTTP POST, we're interested in processing form data.
-    if not register and request.POST:
+    if not register and request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
-        client_form = ClientUserForm(request.POST)
+        user = MyUser.objects.get(pk=request.POST['user_id'])
+        client = Client(user=user)
+        client_form = ClientUserForm(request.POST, instance=client)
         ##################################################profile_form = userForm(data=request.POST)
 
         # If the two forms are valid...
@@ -138,7 +159,7 @@ def provide_client_info(request, user=None, register=False):
     # Render the template depending on the context.
     return render_to_response(
             'client_info.html',
-            {'client_form': client_form},
+            {'client_form': client_form, 'user':user, 'registered': registered},
             context)                                               
 
 
@@ -320,7 +341,7 @@ def index(request):
 
 
 def homepage(request):
-	return render(request,'Homepage.html')
+    return render(request,'Homepage.html')
 
 
 def data(request):
@@ -346,6 +367,15 @@ def data(request):
 
     trainer = Trainer(user=user2,phone='012387363',experience='lelelelle',education='hehehehehe')
     trainer.save()
+
+   
+   
+
+
+
+def data(request):
+    User.object.all().delete()
+    user= MyUser(date_of_birth= '1994-1-1', gender='Female', username= 'bino', email= 'bino@gmail.com')
 
     FriendshipRequest(from_user=user1, to_user=user).save()
     return HttpResponse('sucess')
