@@ -167,7 +167,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect('Homepage.html')
+                return render_to_response('Homepage.html', {}, context)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your workout account is disabled.")
