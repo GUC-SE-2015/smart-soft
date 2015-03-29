@@ -5,6 +5,12 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+{% if user.is_authenticated %}
+<a href="/logout/">Logout</a>
+{% else %}
+<a href="/register/">Sign-Up</a>
+<a href="/login/">Login</a>
+{% endif %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -60,7 +66,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <body>
 
-                  <button type="button" onclick="alert('Thank you')">Follow Me!</button>
+                 <!-- <button type="button" onclick="alert('Thank you')">Follow Me!</button>-->
  
             </body>
 
@@ -93,8 +99,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <li class="page-scroll">
                             <a id="s3" class="subNavBtn" href="#">INFO</a>
                         </li>
-                       <li class="page-scroll">
+                      <!-- <li class="page-scroll">
                             <a id="s4" class="subNavBtn" href="#">Contact</a>
+                        </li>-->
+                        <li class="page-scroll">
+                            <a id="s6" class="subNavBtn" onclick="alert('Thank you')" href="#">Follow Me</a>
                         </li>
                        <!-- <li class="page-scroll">
                             <a id="s5" class="subNavBtn" href="#">Contact</a>
@@ -115,22 +124,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <h3>My Profile</h3>
                 <div class="col-md-4 services-row-column">
                     <i class="icon1"></i>
-                    <h4><a hrerf="#">Goals</a></h4>
-                    <small>My goals</small>
+                    <h4><a hrerf="#"></a></h4>
+                    <small></small>
                     <p></p>
                 </div>
+
                 <div class="col-md-4 services-row-column">
                     <i class="icon2"></i>
-                    <h4><a hrerf="#">Work-Out Scheduele</a></h4>
-                    <small>My Scheduele</small>
+                    <h4><a hrerf="#">My Clients</a></h4>
+                    <small></small>
                     <p></p>
                 </div>
                 <div class="col-md-4 services-row-column"   >
                     <i class="icon3"></i>
-                    <h4><a hrerf="#">Statistics</a></h4>
-                    <small>My Performance</small>
+                    <h4><a hrerf="#"></a></h4>
+                    <small></small>
                     <p></p>
                 </div>
+
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -369,7 +380,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
     <!-- Twitter Ends Here -------->
     <!--- Contact Starts Here ------>
-    <div class="contact s4" id="contact">
+    <!--<div class="contact s4" id="contact">
         <div class="container">
             <div class="contact-top">
                 <h3>Contact me</h3>
@@ -392,7 +403,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <small><a href="#"></a></small>
             </div>
         </div>      
-    </div
+    </div -->
     <!--- Contact Ends Here ------>
     <!--- Footer Starts Here ------>
     <div class="footer sTop" id="footer">

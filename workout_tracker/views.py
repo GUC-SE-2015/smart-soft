@@ -379,3 +379,6 @@ def data(request):
 
     FriendshipRequest(from_user=user1, to_user=user).save()
     return HttpResponse('sucess')
+
+def schedule(request):
+    return render(request,'schedule.html')

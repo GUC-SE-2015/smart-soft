@@ -17,7 +17,8 @@ urlpatterns = patterns('',
     	url(r'^reject/(?P<pid>\d+)$', views.reject, name='reject'),
         url(r'^trainer_profile/$',views.view_trainerprofile, name='trainer_profile'),
         url(r'^client_profile/$',views.view_clientprofile, name='client_profile'),
-
+        url(r'^client_workouts/$',views.schedule, name='client_workouts'),
+        #url(r'^client_profile/client_workouts/$',views.schedule, name='client_Pworkouts'),
     	
     	url(r'^data/$', views.data, name='data'),
 )
