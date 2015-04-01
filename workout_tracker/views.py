@@ -210,7 +210,7 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('/')         
+    return HttpResponseRedirect('index.html')         
 
 
 
