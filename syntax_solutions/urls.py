@@ -10,11 +10,9 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^$', 'workout_tracker.views.show'),
-    url(r'^$', include('workout_tracker.urls')),
-	url(r'^workout_tracker/', include('workout_tracker.urls')),
-    
-
     url(r'^my_clients/$', views.view_clients),
     url(r'^search/$', views.search),
+
+    url(r'^', include('workout_tracker.urls')),
 
    )
