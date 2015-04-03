@@ -3,7 +3,7 @@ from django.template import RequestContext
 from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from workout_tracker.forms import TrainerUserForm, ClientUserForm
+from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm
 from models import Trainer, Client, User
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout 
@@ -44,7 +44,7 @@ def provide_trainer_info(request, user=None, register=False):
     if not register and request.method =='POST' :
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
-        user = MyUser.objects.get(pk=request.POST['user_id'])
+        user = User.objects.get(pk=request.POST['user_id'])
         trainer = Trainer(user=user)
         trainer_form = TrainerUserForm(request.POST, instance=trainer)
         ##################################################profile_form = userForm(data=request.POST)
@@ -53,6 +53,11 @@ def provide_trainer_info(request, user=None, register=False):
         if trainer_form.is_valid():
             # Save the user's form data to the database.
             user = trainer_form.save()
+            return render_to_response(
+            'trainer_profile.html',
+            {'user':user,},
+            context) 
+
 
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
@@ -221,7 +226,7 @@ def register(request, user_type=None):
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
-        user_form = CustomUserForm(data=request.POST)
+        user_form = UserCreateForm(data=request.POST)
         ##################################################profile_form = userForm(data=request.POST)
 
         # If the two forms are valid...
@@ -251,7 +256,7 @@ def register(request, user_type=None):
             # Update our variable to tell the template registration was successful.
             registered = True
 
-            if user_type == 'trainer':
+            if request.POST.get("trainer"):
                 #redirect to trainer form
                 return provide_trainer_info(request, user=user, register=True)
                 
@@ -271,7 +276,7 @@ def register(request, user_type=None):
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
-        user_form = CustomUserForm()
+        user_form = UserCreateForm
         ##################################################profile_form = userForm()
 
     # Render the template depending on the context.

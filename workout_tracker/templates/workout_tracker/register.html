@@ -15,7 +15,7 @@
         {% else %}
         <strong>Sign-Up here!</strong><br />
 
-        <form id="user_form" method="post" action="/workout_tracker/register/"
+        <form id="user_form" method="post" action="/register/"
                 enctype="multipart/form-data">
 
             {% csrf_token %}
@@ -25,12 +25,10 @@
                  making everything look neater. -->
             {{ user_form.as_p }}
             
-
             <!-- Provide a button to click to submit the form. -->
-        </form>
-        
-        <input type="submit" name="submit" id='submit_trainer' value="Sign-Up as a trainer" />
-        <input type="submit" name="submit" id='submit_client' value="Sign-Up as  a client" />
+
+        <input type="submit" name="trainer" id='submit_trainer' value="Sign-Up as a trainer" />
+        <input type="submit" name="client" id='submit_client' value="Sign-Up as  a client" />
 
         <script src="{% static 'jquery.js' %}"></script>
         <script type="text/javascript">
@@ -47,6 +45,9 @@
 
         </script>
         {% endif %}
+        </form>
+        
+
 
     </body>
 </html>
