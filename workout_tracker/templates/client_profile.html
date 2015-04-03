@@ -93,7 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <a id="s3" class="subNavBtn" href="#">INFO</a>
                         </li>
                        <li class="page-scroll">
-                            <a id="s4" class="subNavBtn" onclick="location.href='client_workouts.html' " href="#">My Trainer </a>
+                            <a id="s4" class="subNavBtn" href="{% url 'trainer_profile' %}">My Trainer </a>
                         </li>
                        <!-- <li class="page-scroll">
                             <a id="s5" class="subNavBtn" href="#">Contact</a>
@@ -120,7 +120,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
                 <div class="col-md-4 services-row-column">
                     <i class="icon2"></i>
-                    <h4><a onclick="location.href='client_workouts.html' " hrerf="#">Work-Out Scheduele</a></h4>
+                    <h4><a hrerf="{% url 'client_workouts' %}">Work-Out Scheduele</a></h4>
                     <small>My Scheduele</small>
                     <p></p>
                 </div>
