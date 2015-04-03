@@ -15,10 +15,9 @@ urlpatterns = patterns('',
     	url(r'^view_pending/$', views.view_pending, name='view_pending'),
     	url(r'^accept/(?P<pid>\d+)$', views.accept, name='accept'),
     	url(r'^reject/(?P<pid>\d+)$', views.reject, name='reject'),
-        url(r'^trainer_profile/$',views.view_trainerprofile, name='trainer_profile'),
         url(r'^client_profile/$',views.view_clientprofile, name='client_profile'),
         url(r'^client_workouts/$',views.schedule, name='client_workouts'),
-        #url(r'^client_profile/client_workouts/$',views.schedule, name='client_Pworkouts'),
-    	
-    	url(r'^data/$', views.data, name='data'),
+        url(r'^trainer/(?P<trainer_id>\d+)$', views.view_trainer, name='view_trainer'),
+        url(r'^trainers/$', views.trainers, name='trainers'),
+        url(r'^data/$', views.data, name='data'),
 )

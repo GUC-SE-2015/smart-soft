@@ -1,25 +1,21 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-from django.contrib.auth.models import User
 from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from workout_tracker.forms import CustomUserForm, TrainerUserForm, ClientUserForm
-from models import Trainer, MyUser, Client
+from workout_tracker.forms import TrainerUserForm, ClientUserForm
+from models import Trainer, Client, User
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout 
 
 
-def view_trainerprofile(request):
+def view_trainer(request, trainer_id):
+    trainer = Trainer.objects.get(id=trainer_id)
+    return render(request,'trainer_profile.html', {"trainer":trainer})
 
-    user = {
-      "name":"Ronnie Coleman",
-      "email":"Coleman@gmail.com",
-      "phone":"0123456789",
-      "experience": "10 years working as a trainer",
-     }
-    
-    return render(request,'trainer_profile.html', {"user":user})
+
+def trainers(request):
+    return render(request,'trainers.html', {"trainers":Trainer.objects.all()})    
 
 
 def view_clientprofile(request):
@@ -99,6 +95,7 @@ def provide_trainer_info(request, user=None, register=False):
             {'trainer_form': trainer_form, 'user':user, 'registered': registered},
             context)    
 
+
 def provide_client_info(request, user=None, register=False):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -163,7 +160,6 @@ def provide_client_info(request, user=None, register=False):
             context)                                               
 
 
-
 def user_login(request):
     # Like before, obtain the context for the user's request.
     context = RequestContext(request)
@@ -210,8 +206,7 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('/')         
-
+    return HttpResponseRedirect('index.html')         
 
 
 def register(request, user_type=None):
@@ -290,9 +285,11 @@ def view_clients(request):
     all_friends = Friend.objects.friends(request.user)
     return render(request, 'friends.html', {'all_friends': all_friends})
 
+
 def view_pending(request):
     unrejects = Friend.objects.unrejected_requests(user=request.user)
     return render(request, 'pending_follow_requests.html', {'unrejects': unrejects})
+
 
 def create_follow_request(request):
     other_user = User.objects.get(pk=1)
@@ -305,13 +302,16 @@ def create_follow_request(request):
         message='Hi, I would like to be your friend',
     )
 
+
 def accept(request, pid):
     FriendshipRequest.objects.get(id=pid).accept()
     return HttpResponse('friend accepted')
 
+
 def reject(request, pid):
     FriendshipRequest.objects.get(id=pid).reject()
     return HttpResponse('friend rejected')
+
 
 def search(request):
   if request.GET:
@@ -321,6 +321,7 @@ def search(request):
       result |= Trainer.objects.filter(user__name__icontains=q)
 
   return HttpResponse([r.user.username for r in result])
+
 
 def show(request):
     if not User.objects.all():
@@ -347,38 +348,39 @@ def homepage(request):
 def data(request):
     User.objects.all().delete()
 
-    user = MyUser(date_of_birth='1994-1-1',gender='Female', username='admin', email='alexan.nader@gmail.com')
-    user.set_password('pass')
-    user.is_staff = True
-    user.is_superuser = True
+    user = User.objects.create_superuser(
+        'admin',
+        'alexan.nader@gmail.com', 'pass')
+    user.first_name = 'Nader'
+    user.last_name = 'Alexan'
     user.save()
-
-
-    user1 = MyUser(date_of_birth='1994-1-1',gender='Female', username='Noha', email='noha.nader@gmail.com')
-    user1.set_password('pass')
-    user1.save()
-
-    trainer = Trainer(user=user1, experience='lalalala',phone='01010108090',education='hahahahha')
+    trainer = Trainer(
+        user=user,
+        date_of_birth='1994-1-1',
+        gender='Male',
+        type='trainer',
+        phone='01005577997',
+        experience='so much experience, so much wow',
+        education='Saint Fatima el Sele7dar High School'
+        )
     trainer.save()
-
-    user2= MyUser(date_of_birth='1993-3-12',gender='Male', username='Seif', email='seif.nader@gmail.com')
-    user2.set_password('pass')
-    user2.save()
-
-    trainer = Trainer(user=user2,phone='012387363',experience='lelelelle',education='hehehehehe')
-    trainer.save()
-
-   
-   
-
-
-
-def data(request):
-    User.object.all().delete()
-    user= MyUser(date_of_birth= '1994-1-1', gender='Female', username= 'bino', email= 'bino@gmail.com')
-
-    FriendshipRequest(from_user=user1, to_user=user).save()
-    return HttpResponse('sucess')
+    
+    user = User.objects.create_superuser('mirna',
+        'mirna@gmail.com', 'pass')
+    user.first_name = 'Mirna'
+    user.last_name = 'Benjamin'
+    user.save()
+    client = Client(
+        user=user,
+        date_of_birth='1994-1-1',
+        gender='Female',
+        type='client',
+        health_issues='All work best, very very awesome, quite tiny',
+        weight=40.0,
+        height=120.0,
+        )
+    client.save()
+    return trainers(request)
 
 def schedule(request):
     return render(request,'schedule.html')

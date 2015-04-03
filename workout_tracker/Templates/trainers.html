@@ -1,0 +1,5 @@
+{% for trainer in trainers %}
+	<a href="{% url 'view_trainer' trainer.id %}">
+		{{ trainer.user.first_name }}
+	</a>
+{% endfor %}

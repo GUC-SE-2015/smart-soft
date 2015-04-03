@@ -8,60 +8,51 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('auth', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Client',
+            name='UserInfo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('health_issues', models.CharField(max_length=2000)),
-                ('weight', models.FloatField()),
-                ('height', models.FloatField()),
+                ('date_of_birth', models.DateField()),
+                ('gender', models.CharField(max_length=1, choices=[(b'F', b'Female'), (b'M', b'Male')])),
+                ('type', models.CharField(max_length=256, choices=[(b'trainer', b'trainer'), (b'client', b'client')])),
             ],
             options={
             },
             bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Myuser',
-            fields=[
-                ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('date_of_birth', models.DateField()),
-                ('gender', models.CharField(max_length=1, choices=[(b'F', b'Female'), (b'M', b'Male')])),
-            ],
-            options={
-                'abstract': False,
-                'verbose_name': 'user',
-                'verbose_name_plural': 'users',
-            },
-            bases=('auth.user',),
         ),
         migrations.CreateModel(
             name='Trainer',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('userinfo_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='workout_tracker.UserInfo')),
                 ('phone', models.CharField(max_length=30)),
-                ('experience', models.CharField(max_length=2000)),
-                ('education', models.CharField(max_length=2000)),
-                ('user', models.OneToOneField(related_name='trainer', to=settings.AUTH_USER_MODEL)),
+                ('experience', models.TextField()),
+                ('education', models.TextField()),
             ],
             options={
             },
-            bases=(models.Model,),
+            bases=('workout_tracker.userinfo',),
+        ),
+        migrations.CreateModel(
+            name='Client',
+            fields=[
+                ('userinfo_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='workout_tracker.UserInfo')),
+                ('health_issues', models.TextField()),
+                ('weight', models.FloatField()),
+                ('height', models.FloatField()),
+                ('trainer', models.ForeignKey(related_name='clients', blank=True, to='workout_tracker.Trainer', null=True)),
+            ],
+            options={
+            },
+            bases=('workout_tracker.userinfo',),
         ),
         migrations.AddField(
-            model_name='client',
-            name='trainer',
-            field=models.ForeignKey(related_name='clients', blank=True, to='workout_tracker.Trainer', null=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='client',
+            model_name='userinfo',
             name='user',
-            field=models.OneToOneField(related_name='client', to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(related_name='user_info', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]
