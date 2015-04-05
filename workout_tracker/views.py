@@ -53,10 +53,10 @@ def provide_trainer_info(request, user=None, register=False):
         if trainer_form.is_valid():
             # Save the user's form data to the database.
             user = trainer_form.save()
-            return render_to_response(
-            'trainer_profile.html',
-            {'user':user,},
-            context) 
+            current_user=Trainer.objects.get(id=request.user.id)
+            #trainer = Trainer.objects.get(id=request.user.id)
+            #return render(request, 'trainer_profile.html', {'trainer': current_user.id }) 
+            return view_trainer(request, current_user)
 
 
             # Now we hash the password with the set_password method.
@@ -113,7 +113,7 @@ def provide_client_info(request, user=None, register=False):
     if not register and request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
-        user = MyUser.objects.get(pk=request.POST['user_id'])
+        user = User.objects.get(pk=request.POST['user_id'])
         client = Client(user=user)
         client_form = ClientUserForm(request.POST, instance=client)
         ##################################################profile_form = userForm(data=request.POST)
@@ -122,6 +122,7 @@ def provide_client_info(request, user=None, register=False):
         if client_form.is_valid():
             # Save the user's form data to the database.
             user = client_form.save()
+            return render(request, 'client_profile.html', {'client': request.user.id }) 
 
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
@@ -211,7 +212,7 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('index.html')         
+    return HttpResponseRedirect('workout_tracker/index.html')         
 
 
 def register(request, user_type=None):
