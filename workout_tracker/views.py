@@ -5,8 +5,11 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from workout_tracker.forms import TrainerUserForm, ClientUserForm
 from models import Trainer, Client, User
+#from django.contrib.auth.models import User
 from friendship.models import FriendshipRequest
-from django.contrib.auth import logout 
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
 
 
 def view_trainer(request, trainer_id):
@@ -14,11 +17,20 @@ def view_trainer(request, trainer_id):
     return render(request,'trainer_profile.html', {"trainer":trainer})
 
 
+def view_client(request, client_id):
+    client = Client.objects.get(id=client_id)
+    return render(request,'client_profile.html', {"client":client})
+
+
 def trainers(request):
     return render(request,'trainers.html', {"trainers":Trainer.objects.all()})    
 
 
-def view_clientprofile(request):
+def clients(request):
+    return render(request,'clients.html', {"clients":Client.objects.all()})    
+
+
+"""def view_clientprofile(request):
 
     user = {
     "name":"keshk",
@@ -28,10 +40,9 @@ def view_clientprofile(request):
     "weight":"67 KG",
 
     }
-    
     return render(request,'client_profile.html',{"user":user})   
-
-
+    """
+    
 def provide_trainer_info(request, user=None, register=False):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -206,7 +217,7 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('index.html')         
+    return HttpResponseRedirect('/login')         
 
 
 def register(request, user_type=None):

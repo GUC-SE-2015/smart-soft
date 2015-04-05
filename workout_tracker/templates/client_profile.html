@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </ul>
             </div>
             <div class="header-bottom">
-                <h1><Font Color= "WHITE">Hi. My name is {{ user.name }}</Font></h1>
+                <h1><Font Color= "WHITE">Hi. My name is {{ client.user.first_name }} {{ client.user.last_name }}</Font></h1>
                 <h2> <span></span></h2>
                 <a href="#myservices" class="scroll"><img src="{% static 'images/mouse.png' %}" /></a>
                 <p>Scroll</p>
@@ -206,7 +206,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="container">
         <div class="wrap">
             <h3 class="m_2">My Info</h3>    
-            <small class="m-2-s"><span> Email :{{user.email}} </br>Height: {{user.height}} </br>Phone Number: {{user.phone}}</span> </small>
+            <small class="m-2-s"><span> Email :{{client.user.email}} </br>height :{{client.user.height}}  </br>
+           weight :{{client.user.weight}}</br>health issue :{{client.user.health_issues}} </span> </small>
         <div class="career-top"
         </div>
               <div class="gallery autoplay items-3">
