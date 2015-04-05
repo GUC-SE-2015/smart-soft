@@ -54,9 +54,9 @@ def provide_trainer_info(request, user=None, register=False):
             # Save the user's form data to the database.
             user = trainer_form.save()
             current_user=Trainer.objects.get(id=request.user.id)
-            #trainer = Trainer.objects.get(id=request.user.id)
+            return render_to_response('trainer_profile.html', {'current_user': current_user}, context)
             #return render(request, 'trainer_profile.html', {'trainer': current_user.id }) 
-            return view_trainer(request, current_user)
+            #return view_trainer(request, current_user)
 
 
             # Now we hash the password with the set_password method.
@@ -212,7 +212,7 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('workout_tracker/index.html')         
+    return HttpResponseRedirect('/login')         
 
 
 def register(request, user_type=None):
