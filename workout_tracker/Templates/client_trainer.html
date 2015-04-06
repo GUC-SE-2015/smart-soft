@@ -18,9 +18,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <link href="{% static 'css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.min.js'%}"></script>
 <!-- Custom Theme files -->
-<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+<link href="{% static 'css/style2.css' %}" rel='stylesheet' type='text/css' />
 <link href="{% static 'css/gallery.css" rel="stylesheet" type="text/css" media="all' %}" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
@@ -59,20 +59,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </ul>
             </div>
             <div class="header-bottom">
-                <h1><Font Color= "WHITE">Hi. My name is {{ trainer.user.first_name }} {{ trainer.user.last_name }}</Font></h1>
+                <h1><Font Color= "WHITE">Hi. My name is {{ client.user.first_name }} {{ client.user.last_name }}</Font></h1>
                 <h2> <span></span></h2>
                 <a href="#myservices" class="scroll"><img src="{% static 'images/mouse.png' %}" /></a>
                 <p>Scroll</p>
             </div>
-            <body>
-
-                 <!-- <button type="button" onclick="alert('Thank you')">Follow Me!</button>-->
- 
-            </body>
-
         </div>
         </div>  
-
     <!--Header srarts Here -->
     <!-- Navigation Starts Here -->
     <nav class="subMenu navbar-custom navbar-scroll-top smint" role="navigation" style="position: absolute; top: 737px;">
@@ -90,21 +83,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <li class="page-scroll">
                             <a id="sTop" class="subNavBtn active" href="#">Home</a>
                         </li>
-                        <li class="active">
-                            <a id="s1" class="subNavBtn" href="#">My Profile</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a id="s2" class="subNavBtn" href="#">Upload Profile Picture</a>
-                        </li>
+                        
                         <li class="page-scroll">
                             <a id="s3" class="subNavBtn" href="#">INFO</a>
                         </li>
-                      <!-- <li class="page-scroll">
-                        <li class="page-scroll">
-                            <a id="s6" class="subNavBtn" onclick="alert('Thank you')" href="#">Follow Me</a>
-                        </li>
-                        
-                        </li>-->
                        <!-- <li class="page-scroll">
                             <a id="s5" class="subNavBtn" href="#">Contact</a>
                        </li>-->
@@ -117,44 +99,42 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       </nav>
    
     <!-- Navigation Ends Here -->
-    <!-- Services Starts Here -->
+    <!-- Services Starts Here-->
     <div class="services s1" id="myservices">
         <div class="container">
             <div class="row services-row">
-                <h3></h3>
+                <h3>My Profile</h3>
                 <div class="col-md-4 services-row-column">
                     <i class="icon1"></i>
-                    <h4><a hrerf="#">Follow Requests</a></h4>
-                    <small></small>
+                    <h4><a href="#">Goals</a></h4>
+                    <small>My goals</small>
                     <p></p>
                 </div>
-
                 <div class="col-md-4 services-row-column">
                     <i class="icon2"></i>
-                    <h4><a href="{% url 'clients'%}">My Clients</a></h4>
-                    <small></small>
+                    <h4><a href="{% url 'client_workouts' %}">Work-Out Scheduele</a></h4>
+                    <small>My Scheduele</small>
                     <p></p>
                 </div>
                 <div class="col-md-4 services-row-column"   >
                     <i class="icon3"></i>
-                    <h4><a hrerf="#">Other info</a></h4>
-                    <small></small>
-               clients</p>
+                    <h4><a href="#">Statistics</a></h4>
+                    <small>My Performance</small>
+                    <p></p>
                 </div>
-
                 <div class="clearfix"></div>
             </div>
         </div>
     </div>
-    <!-- Services Ends Here -->
+    <!--Services Ends Here -->
     <!-- Work Starts Here -->
+    
     <div class="work s2" id="mywork">
         <div class="container">
             <div class="work-top">
-              <!--  <h3>My Images</h3>
-                
-            </div>
-            
+                <h3></h3>
+                </div>
+            <!--GAllery 
             <div id="ca-container" class="ca-container">
                     <div class="ca-wrapper">
                          <div class="ca-item ca-item-1">
@@ -211,14 +191,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         $('#ca-container').contentcarousel();
                     </script>
         </div>
-    </div> -->
+    </div>
     <!-- Work Ends Here -->
     <!-- Careers status starts here -->
     <div class="career s3" id="info">
         <div class="container">
         <div class="wrap">
             <h3 class="m_2">My Info</h3>    
-            <small class="m-2-s"><span> Email :{{trainer.user.email}} </br>Experience: {{trainer.experience}} </br>Phone Number: {{trainer.phone}}</span> </small>
+            <small class="m-2-s"><span> Email :{{client.user.email}} </br>height :{{client.user.height}}  </br>
+           weight :{{client.user.weight}}</br>health issue :{{client.user.health_issues}} </span> </small>
         <div class="career-top"
         </div>
               <div class="gallery autoplay items-3">
@@ -364,8 +345,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         </div>
     </div>
-    <!-- Careers status ends here -->
-    <!-- Twitter Starts Here -->
+    <!-- Careers status ends here --->
+    <!-- Twitter Starts Here -------->
     <div class="twitter">
         <div class="container">
             <div class="twitter-top">
@@ -379,8 +360,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
     <!-- Twitter Ends Here -->
-     </div>
-    <!-- Footer Starts Here -->
+    <!--- Contact Starts Here 
+    <div class="contact s4" id="contact">
+        <div class="container">
+            <div class="contact-top">
+                <h3>Contact me</h3>
+            </div>
+            <div class="text1">
+                <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
+            </div>
+            <div class="text1">
+                <input type="text" value="Phone no" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone no';}">
+            </div>
+            <div class="text2">
+                <textarea value="Message:" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Message..';}">Your Message..</textarea>
+
+            </div>
+            <div class="text3">
+            <input type="submit" value="send" />
+            </div>
+            <div class="text4">
+                <p>+123 456 7890</p>
+                <small><a href="#"></a></small>
+            </div>
+        </div>      
+    </div
+     Contact Ends Here -->
+    <!--- Footer Starts Here -->
     <div class="footer sTop" id="footer">
         <div class="container">
             <div class="footer-left">
@@ -400,6 +406,5 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         </div>
     </div>
-    <!-- Footer Ends Here -->
+    <!--- Footer Ends Here -->
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-</body>

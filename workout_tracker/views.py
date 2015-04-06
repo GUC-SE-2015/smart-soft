@@ -30,7 +30,7 @@ def clients(request):
     return render(request,'clients.html', {"clients":Client.objects.all()})    
 
 
-"""def view_clientprofile(request):
+def trainers_clients(request):
 
     user = {
     "name":"keshk",
@@ -40,9 +40,22 @@ def clients(request):
     "weight":"67 KG",
 
     }
-    return render(request,'client_profile.html',{"user":user})   
-    """
-    
+    return render(request,'trainer_client.html',{"user":user})   
+
+
+def clients_trainers(request):
+
+    user = {
+    "name":"keshk",
+    "email":"keshk@gmail.com",
+    "phone":"0123456789",
+    "height": "170 CM",
+    "weight":"67 KG",
+
+    }
+    return render(request,'client_trainer.html',{"user":user})   
+
+   
 def provide_trainer_info(request, user=None, register=False):
     # Like before, get the request's context.
     context = RequestContext(request)
