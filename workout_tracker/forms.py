@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from workout_tracker.models import Trainer, Client, UserInfo
+from workout_tracker.models import Trainer, Client, UserInfo, Workouts, Comment
 
 class TrainerUserForm(forms.ModelForm):
 	class Meta:
@@ -26,7 +26,14 @@ class UserCreateForm(UserCreationForm):
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
-        return user        
+        return user  
+
+class WorkoutForm(forms.ModelForm):
+    class Meta:
+        model = Workouts
+        fields = ("workout", "due_date")
+
+
 
 
 

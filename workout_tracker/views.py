@@ -3,8 +3,8 @@ from django.template import RequestContext
 from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm
-from models import Trainer, Client, User
+from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm
+from models import Trainer, Client, User, UserInfo
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout 
 
@@ -53,10 +53,10 @@ def provide_trainer_info(request, user=None, register=False):
         if trainer_form.is_valid():
             # Save the user's form data to the database.
             user = trainer_form.save()
-            current_user=Trainer.objects.get(id=request.user.id)
-            return render_to_response('trainer_profile.html', {'current_user': current_user}, context)
+            #current_user=Trainer.objects.get(id=request.user.id)
+            #return render_to_response('trainer_profile.html', {'current_user': current_user}, context)
             #return render(request, 'trainer_profile.html', {'trainer': current_user.id }) 
-            #return view_trainer(request, current_user)
+            return view_trainer(request, user_info.id)
 
 
             # Now we hash the password with the set_password method.
@@ -206,6 +206,8 @@ def user_login(request):
         # blank dictionary object...
         return render_to_response('login.html', {}, context)
 
+def login(request, username, password):        
+
 
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
@@ -234,11 +236,6 @@ def register(request, user_type=None):
         if user_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
-
-            # Now we hash the password with the set_password method.
-            # Once hashed, we can update the user object.
-            user.set_password(user.password)
-            user.save()
 
             # Now sort out the UserProfile instance.
             # Since we need to set the user attribute ourselves, we set commit=False.
@@ -390,3 +387,38 @@ def data(request):
 
 def schedule(request):
     return render(request,'schedule.html')
+
+def add_workout(request):
+     # Like before, get the request's context.
+    context = RequestContext(request)
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        # Note that we make use of both UserForm and UserProfileForm.
+        workout_form = WorkoutForm(data=request.POST)
+        ##################################################profile_form = userForm(data=request.POST)
+
+        # If the two forms are valid...
+        if workout_form.is_valid():
+            # Save the user's form data to the database.
+            user = workout_form.save()
+            user.save()
+            return render_to_response('add_workout.html', {'workout_form': workout_form}, context)
+
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        else:
+            print workout_form.errors
+
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    else:
+        workout_form = WorkoutForm()
+
+    # Render the template depending on the context.
+    return render_to_response('add_workout.html',{'workout_form': workout_form},context)               
+
+
+

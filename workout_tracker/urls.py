@@ -20,4 +20,5 @@ urlpatterns = patterns('',
         url(r'^trainer/(?P<trainer_id>\d+)$', views.view_trainer, name='view_trainer'),
         url(r'^trainers/$', views.trainers, name='trainers'),
         url(r'^data/$', views.data, name='data'),
+        url(r'^add_workout/$', views.add_workout, name='add_workout')
 )
