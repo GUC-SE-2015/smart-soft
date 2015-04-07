@@ -177,7 +177,9 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        # Use Django's machinery to attempt to see if the username/password
+        return login_sub(request, username, password)
+
+        """# Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
 
@@ -204,9 +206,29 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render_to_response('login.html', {}, context)
+        return render_to_response('login.html', {}, context) """
 
-#def login(request, username, password):        
+def login_sub(request, username, password):    
+
+    user = authenticate(username=username, password=password)
+
+        # If we have a User object, the details are correct.
+        # If None (Python's way of representing the absence of a value), no user
+        # with matching credentials was found.
+    if user:
+            # Is the account active? It could have been disabled.
+        if user.is_active:
+            # If the account is valid and active, we can log the user in.
+            # We'll send the user back to the homepage.
+            login(request, user)
+            return render_to_response('Homepage.html', {}, context)
+        else:
+            # An inactive account was used - no logging in!
+            return HttpResponse("Your workout account is disabled.")
+    else:
+        # Bad login details were provided. So we can't log the user in.
+        print "Invalid login details: {0}, {1}".format(username, password)
+        return HttpResponse("Invalid login details supplied.")    
 
 
 def user_logout(request):
