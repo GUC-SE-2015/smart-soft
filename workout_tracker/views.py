@@ -6,19 +6,34 @@ from django.http import HttpResponseRedirect, HttpResponse
 from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm
 from models import Trainer, Client, User, UserInfo
 from friendship.models import FriendshipRequest
-from django.contrib.auth import logout 
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
 
 
 def view_trainer(request, trainer_id):
     trainer = Trainer.objects.get(id=trainer_id)
-    return render(request,'trainer_profile.html', {"trainer":trainer})
+    return render(request,'trainer_profile.html', {
+        "trainer":trainer,
+        "owner": False if request.user.is_anonymous() else request.user.user_info.id == trainer.id})
+
+
+def view_client(request, client_id):
+    client = Client.objects.get(id=client_id)
+    return render(request,'client_profile.html', {
+        "client":client,
+        "owner": False if request.user.is_anonymous() else request.user.user_info.id == client.id})
 
 
 def trainers(request):
     return render(request,'trainers.html', {"trainers":Trainer.objects.all()})    
 
 
-def view_clientprofile(request):
+def clients(request):
+    return render(request,'clients.html', {"clients":Client.objects.all()})    
+
+
+def trainers_clients(request):
 
     user = {
     "name":"keshk",
@@ -28,10 +43,22 @@ def view_clientprofile(request):
     "weight":"67 KG",
 
     }
-    
-    return render(request,'client_profile.html',{"user":user})   
+    return render(request,'trainer_client.html',{"user":user})   
 
 
+def clients_trainers(request):
+
+    user = {
+    "name":"keshk",
+    "email":"keshk@gmail.com",
+    "phone":"0123456789",
+    "height": "170 CM",
+    "weight":"67 KG",
+
+    }
+    return render(request,'client_trainer.html',{"user":user})   
+
+   
 def provide_trainer_info(request, user=None, register=False):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -177,9 +204,9 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        return login_sub(request, username, password)
+        #return login_sub(request, username, password)
 
-        """# Use Django's machinery to attempt to see if the username/password
+        # Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
 
@@ -192,7 +219,13 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return render_to_response('Homepage.html', {}, context)
+                user_info = request.user.user_info
+                if user_info.type == 'trainer':
+                    return view_trainer(request, user_info.id)
+                else:
+                    return view_client(request, user_info.id)
+
+                # return render_to_response('Homepage.html', {}, context)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your workout account is disabled.")
@@ -206,9 +239,17 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render_to_response('login.html', {}, context) """
+        if request.user.is_anonymous():
+            return render_to_response('login.html', {}, context)
+        else:
+            user_info = request.user.user_info
+            if user_info.type == 'trainer':
+                return view_trainer(request, user_info.id)
+            else:
+                return view_client(request, user_info.id)
 
-def login_sub(request, username, password):    
+
+"""def login_sub(request, username, password):    
 
     user = authenticate(username=username, password=password)
 
@@ -228,7 +269,7 @@ def login_sub(request, username, password):
     else:
         # Bad login details were provided. So we can't log the user in.
         print "Invalid login details: {0}, {1}".format(username, password)
-        return HttpResponse("Invalid login details supplied.")    
+        return HttpResponse("Invalid login details supplied.")    """
 
 
 def user_logout(request):
@@ -441,6 +482,3 @@ def add_workout(request):
 
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)               
-
-
-

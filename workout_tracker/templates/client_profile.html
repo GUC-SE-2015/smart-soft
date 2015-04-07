@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </ul>
             </div>
             <div class="header-bottom">
-                <h1><Font Color= "WHITE">Hi. My name is {{ user.name }}</Font></h1>
+                <h1><Font Color= "WHITE">Hi. My name is {{ client.user.first_name }} {{ client.user.last_name }}</Font></h1>
                 <h2> <span></span></h2>
                 <a href="#myservices" class="scroll"><img src="{% static 'images/mouse.png' %}" /></a>
                 <p>Scroll</p>
@@ -87,13 +87,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <a id="s1" class="subNavBtn" href="#">My Profile</a>
                         </li>
                         <li class="page-scroll">
-                            <a id="s2" class="subNavBtn" href="#">Images</a>
+                            <a id="s2" class="subNavBtn" href="#">Upload Profile Picture</a>
                         </li>
                         <li class="page-scroll">
                             <a id="s3" class="subNavBtn" href="#">INFO</a>
                         </li>
                        <li class="page-scroll">
                             <a id="s4" class="subNavBtn" href="{% url 'trainers'%}">My Trainer </a>
+                        </li>
+                        <li class="page-scroll">
+                            <a id="s5" class="subNavBtn" href="#">Search</a>
                         </li>
                        <!-- <li class="page-scroll">
                             <a id="s5" class="subNavBtn" href="#">Contact</a>
@@ -114,19 +117,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <h3>My Profile</h3>
                 <div class="col-md-4 services-row-column">
                     <i class="icon1"></i>
-                    <h4><a hrerf="#">Goals</a></h4>
+                    <h4><a href="#">Goals</a></h4>
                     <small>My goals</small>
                     <p></p>
                 </div>
                 <div class="col-md-4 services-row-column">
                     <i class="icon2"></i>
-                    <h4><a hrerf="{% url 'client_workouts' %}">Work-Out Scheduele</a></h4>
+                    <h4><a href="{% url 'client_workouts' %}">Work-Out Scheduele</a></h4>
                     <small>My Scheduele</small>
                     <p></p>
                 </div>
                 <div class="col-md-4 services-row-column"   >
                     <i class="icon3"></i>
-                    <h4><a hrerf="#">Statistics</a></h4>
+                    <h4><a href="#">Statistics</a></h4>
                     <small>My Performance</small>
                     <p></p>
                 </div>
@@ -134,15 +137,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
-    <!---- Services Ends Here ---->
-    <!-- Work Starts Here ----->
+    <!--Services Ends Here -->
+    <!-- Work Starts Here -->
+    
     <div class="work s2" id="mywork">
         <div class="container">
             <div class="work-top">
-                <h3>My Images</h3>
-                
-            </div>
-            <!---- GAllery ------>
+                <h3></h3>
+                </div>
+            <!--GAllery 
             <div id="ca-container" class="ca-container">
                     <div class="ca-wrapper">
                          <div class="ca-item ca-item-1">
@@ -200,13 +203,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </script>
         </div>
     </div>
-    <!-- Work Ends Here -->
+     Work Ends Here -->
     <!-- Careers status starts here -->
     <div class="career s3" id="info">
         <div class="container">
         <div class="wrap">
             <h3 class="m_2">My Info</h3>    
-            <small class="m-2-s"><span> Email :{{user.email}} </br>Height: {{user.height}} </br>Phone Number: {{user.phone}}</span> </small>
+            <small class="m-2-s"><span> Email :{{client.user.email}} </br>height :{{client.user.height}}  </br>
+           weight :{{client.user.weight}}</br>health issue :{{client.user.health_issues}} </span> </small>
         <div class="career-top"
         </div>
               <div class="gallery autoplay items-3">
