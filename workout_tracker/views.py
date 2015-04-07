@@ -204,8 +204,6 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        #return login_sub(request, username, password)
-
         # Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
@@ -247,6 +245,7 @@ def user_login(request):
                 return view_trainer(request, user_info.id)
             else:
                 return view_client(request, user_info.id)
+
 
 
 """def login_sub(request, username, password):    
@@ -464,8 +463,11 @@ def add_workout(request):
 
         # If the two forms are valid...
         if workout_form.is_valid():
+
             # Save the user's form data to the database.
             user = workout_form.save()
+            user.client = Client.objects.get(client= request.user)
+            user.posted_by = Client.objects.get(client= request.user)
             user.save()
             return render_to_response('add_workout.html', {'workout_form': workout_form}, context)
 
