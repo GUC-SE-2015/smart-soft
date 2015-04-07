@@ -80,7 +80,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-SIGNUP_FORM_CLASS = 'workout_tracker.forms.UserSignUpForm'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
