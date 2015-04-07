@@ -14,12 +14,16 @@ from django.contrib.auth.decorators import login_required
 
 def view_trainer(request, trainer_id):
     trainer = Trainer.objects.get(id=trainer_id)
-    return render(request,'trainer_profile.html', {"trainer":trainer})
+    return render(request,'trainer_profile.html', {
+        "trainer":trainer,
+        "owner": False if request.user.is_anonymous() else request.user.user_info.id == trainer.id})
 
 
 def view_client(request, client_id):
     client = Client.objects.get(id=client_id)
-    return render(request,'client_profile.html', {"client":client})
+    return render(request,'client_profile.html', {
+        "client":client,
+        "owner": False if request.user.is_anonymous() else request.user.user_info.id == client.id})
 
 
 def trainers(request):
@@ -214,7 +218,13 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return render_to_response('Homepage.html', {}, context)
+                user_info = request.user.user_info
+                if user_info.type == 'trainer':
+                    return view_trainer(request, user_info.id)
+                else:
+                    return view_client(request, user_info.id)
+
+                # return render_to_response('Homepage.html', {}, context)
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your workout account is disabled.")
@@ -228,7 +238,14 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render_to_response('login.html', {}, context)
+        if request.user.is_anonymous():
+            return render_to_response('login.html', {}, context)
+        else:
+            user_info = request.user.user_info
+            if user_info.type == 'trainer':
+                return view_trainer(request, user_info.id)
+            else:
+                return view_client(request, user_info.id)
 
 
 def user_logout(request):

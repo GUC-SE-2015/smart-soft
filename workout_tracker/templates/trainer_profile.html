@@ -93,9 +93,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <li class="active">
                             <a id="s1" class="subNavBtn" href="#">My Profile</a>
                         </li>
+                        {% if owner %}
                         <li class="page-scroll">
                             <a id="s2" class="subNavBtn" href="#">Upload Profile Picture</a>
                         </li>
+                        {% endif %}
                         <li class="page-scroll">
                             <a id="s3" class="subNavBtn" href="#">INFO</a>
                         </li>
@@ -118,6 +120,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
    
     <!-- Navigation Ends Here -->
     <!-- Services Starts Here -->
+    {% if owner %}    
     <div class="services s1" id="myservices">
         <div class="container">
             <div class="row services-row">
@@ -151,6 +154,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="work s2" id="mywork">
         <div class="container">
             <div class="work-top">
+    {% endif %}
               <!--  <h3>My Images</h3>
                 
             </div>
