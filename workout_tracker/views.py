@@ -206,7 +206,7 @@ def user_login(request):
         # blank dictionary object...
         return render_to_response('login.html', {}, context)
 
-def login(request, username, password):        
+#def login(request, username, password):        
 
 
 def user_logout(request):
