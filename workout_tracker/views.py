@@ -47,5 +47,5 @@ def addComment(request):
 
 def viewComment(request):
   comment = Comment.objects.all()
-  return render(request,'viewComments.html',{})    
+  return render(request,'viewComments.html',{"comments":comment})    
 
