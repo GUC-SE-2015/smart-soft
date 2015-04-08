@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from workout_tracker.models import Trainer, Client, UserInfo, Workout, Comment
 
-<<<<<<< HEAD
+
 
 
 class CommentForm(forms.ModelForm):
@@ -12,17 +12,11 @@ class CommentForm(forms.ModelForm):
 		fields = ("content",)
 
 
-=======
->>>>>>> 330ac7f3a51388f786d8ddc32e56f346cbdee9ce
 class TrainerUserForm(forms.ModelForm):
 	class Meta:
 		model = Trainer
 		exclude = ['user', 'type']
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 330ac7f3a51388f786d8ddc32e56f346cbdee9ce
 class ClientUserForm(forms.ModelForm):
 	class Meta:
 		model = Client
@@ -43,27 +37,7 @@ class UserCreateForm(UserCreationForm):
             user.save()
         return user  
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 330ac7f3a51388f786d8ddc32e56f346cbdee9ce
 class WorkoutForm(forms.ModelForm):
     class Meta:
         model = Workout
         fields = ("workout", "due_date")
-
-
-
-
-
-
-    
-
-
-
-<<<<<<< HEAD
- 
-
-=======
- 
->>>>>>> 330ac7f3a51388f786d8ddc32e56f346cbdee9ce
