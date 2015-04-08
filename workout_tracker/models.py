@@ -16,7 +16,7 @@ class UserInfo(models.Model):
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     myImg = models.ImageField("Profile Pic", upload_to="images/", blank=True, null=True)
-	#date_of_birth = models.DateField()
+
     type = models.CharField(max_length=256, choices=USER_TYPE_CHOICES)
 
     def __unicode__(self):
@@ -34,4 +34,3 @@ class Client(UserInfo):
     health_issues = models.TextField()
     weight = models.FloatField()
     height = models.FloatField()
-

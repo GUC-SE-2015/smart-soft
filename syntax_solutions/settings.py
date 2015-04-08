@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'workout_tracker',
+    'friendship',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,8 +78,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+TEMPLATE_CONTEXT_PROCESSORS=TCP+('django.core.context_processors.request',)
