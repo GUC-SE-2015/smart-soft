@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^friends/', include(admin.site.urls)),
-    url(r'^$', 'workout_tracker.views.show'),
-)
-
+    #url(r'^$', 'workout_tracker.views.show'),
+    url(r'^', include('workout_tracker.urls')),
+    )

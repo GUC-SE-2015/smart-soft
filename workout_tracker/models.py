@@ -32,3 +32,22 @@ class Client(UserInfo):
     health_issues = models.TextField()
     weight = models.FloatField()
     height = models.FloatField()
+
+
+class Workouts(models.Model):
+    client = models.ForeignKey(Client, related_name='client', null=True, blank=True)
+    workout = models.TextField()
+    date_posted = models.DateField()
+    due_date = models.DateField()
+    posted_by= models.ForeignKey(User, related_name='user', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.workout
+
+
+class Comment(models.Model):
+    content= models.TextField()
+    commenter =models.ForeignKey(User, related_name='commenter', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.content
