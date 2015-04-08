@@ -34,8 +34,8 @@ class Client(UserInfo):
     height = models.FloatField()
 
 
-class Workouts(models.Model):
-    client = models.ForeignKey(Client, related_name='client', null=True, blank=True)
+class Workout(models.Model):
+    client = models.ForeignKey(Client, related_name='workout', null=True, blank=True)
     workout = models.TextField()
     date_posted = models.DateField()
     due_date = models.DateField()
@@ -51,3 +51,8 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.content
+
+
+
+
+
