@@ -33,10 +33,10 @@ th, td {
     <th>By</th>
 </tr>
   <tr>
-    <td>Cardio</td>
-    <td>29/3/2015</td>		
-    <td>5/4/2015</td>
-    <td>Trainer</td>
+    <td>{{client_workout.0}}</td>
+    <td>{{client_workout.0.date_posted}}</td>		
+    <td>{{client_workout.0.due_date}}</td>
+    <td>{{client_workout.0.posted_by}}</td>
   </tr>
   <tr>
     <td>chest</td>
@@ -68,18 +68,16 @@ th, td {
 			
 		</div>						
 			<ul >
-        <a  class="btn" href="/add_workout">
-       <input class="btn" href="/add_workout" type="button" style="font-family: sans-serif; font-size: 20px; color: Green;" value="Add Workout"></a>
-      <br>
-        <a  class="btn" href="/addComment">
-       <input class="btn" href="/addComment" type="button" style="font-family: sans-serif; font-size: 20px; color: Green;" value="Add Comment"></a>
-      <br>
-       <a  class="btn" href="/viewComment">
-       <input class="btn" href="/viewComment" type="button" style="font-family: sans-serif; font-size: 20px; color: Green;" value="View Comments"></a>
 			
 			
 			
-			
+					<li class="buttons">
+			    <input type="hidden" name="form_id" value="991058" />
+			    
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Add Workouts" />
+        <br/><br/><input id="saveForm" class="button_text" type="submit" name="submit" value="Add Comments" />
+        <br/><br/><input id="saveForm" class="button_text" type="submit" name="submit" value="View Comments" />
+		</li>
 			</ul>
 		</form>	
 		<div id="footer">

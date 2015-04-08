@@ -3,7 +3,6 @@ from django.contrib import admin
 from workout_tracker import views
 from workout_tracker.views import home, search, addComment, viewComment
 
-
 urlpatterns = patterns('',
     
         url(r'^$', views.index, name='index'),
@@ -23,14 +22,14 @@ urlpatterns = patterns('',
         url(r'^trainers/$', views.trainers, name='trainers'),
         url(r'^clients/$', views.clients, name='clients'),
         url(r'^data/$', views.data, name='data'),
-        url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
-        url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
         url(r'^add_workout/$', views.add_workout, name='add_workout'),
         url(r'^home/$', home, name='home'),
         url(r'^home/search/$', search, name='search'),
         url(r'^addComment/$', addComment, name='addComment'),
         url(r'^viewComment/$', viewComment, name='viewComment'),
-
+        #url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
+        #url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
+        url(r'^add_workout/$', views.add_workout, name='add_workout')
+ 
 
 )
-
