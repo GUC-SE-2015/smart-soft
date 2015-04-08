@@ -14,7 +14,7 @@ def search(request):
     result = Trainer.objects.none()
     for q in query.split(' '):
       result |= Trainer.objects.filter(user__first_name__icontains=q)
-    print 'result', result
+    #print 'result', result
 
 
 def view_trainer(request, trainer_id):
