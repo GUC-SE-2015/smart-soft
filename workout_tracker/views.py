@@ -33,32 +33,6 @@ def clients(request):
     return render(request,'clients.html', {"clients":Client.objects.all()})    
 
 
-def trainers_clients(request):
-
-    user = {
-    "name":"keshk",
-    "email":"keshk@gmail.com",
-    "phone":"0123456789",
-    "height": "170 CM",
-    "weight":"67 KG",
-
-    }
-    return render(request,'trainer_client.html',{"user":user})   
-
-
-def clients_trainers(request):
-
-    user = {
-    "name":"keshk",
-    "email":"keshk@gmail.com",
-    "phone":"0123456789",
-    "height": "170 CM",
-    "weight":"67 KG",
-
-    }
-    return render(request,'client_trainer.html',{"user":user})   
-
-   
 def provide_trainer_info(request, user=None, register=False):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -246,9 +220,7 @@ def user_login(request):
             else:
                 return view_client(request, user_info.id)
 
-#def login(request, username, password):        
-
-
+        
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
@@ -425,8 +397,11 @@ def data(request):
     client.save()
     return trainers(request)
 
+
 def schedule(request):
-    return render(request,'schedule.html')
+    client_workout = request.user.user_info.client.workout.all()
+    return render(request,'schedule.html', {'client_workout': client_workout})
+
 
 def add_workout(request):
      # Like before, get the request's context.
