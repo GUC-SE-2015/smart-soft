@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Workouts</title>
+    </head>
+
+    <body>
+        <h1>Add Workouts</h1>
+
+        <form id="workout_form" method="post" action="/add_workout/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            <!--{{ workout_form.as_p }} -->
+
+            {% for field in workout_form %}
+                <br>
+                <label style='color:red;'>{{ field.label }}</label>
+                <br>
+                {{ field }}
+            {% endfor %}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Add" />
+        </form>
+    </body>
+</html>
