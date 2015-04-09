@@ -9,3 +9,4 @@ admin.site.register(Client)
 admin.site.register(Trainer)
 admin.site.register(Workout)
 admin.site.register(Comment)
+

@@ -83,14 +83,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <li class="page-scroll">
                             <a id="sTop" class="subNavBtn active" href="#">Home</a>
                         </li>
+                        <li class="page-scroll">
+                            <a id="s3" class="subNavBtn" href="#">INFO</a>
+                        </li>
+                        {% if owner %} 
                         <li class="active">
                             <a id="s1" class="subNavBtn" href="#">My Profile</a>
                         </li>
                         <li class="page-scroll">
                             <a id="s2" class="subNavBtn" href="#">Upload Profile Picture</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a id="s3" class="subNavBtn" href="#">INFO</a>
                         </li>
                        <li class="page-scroll">
                             <a id="s4" class="subNavBtn" href="{% url 'trainers'%}">My Trainer </a>
@@ -98,6 +99,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <li class="page-scroll">
                             <a id="s5" class="subNavBtn" href="#">Search</a>
                         </li>
+                        {% endif %}
                        <!-- <li class="page-scroll">
                             <a id="s5" class="subNavBtn" href="#">Contact</a>
                        </li>-->

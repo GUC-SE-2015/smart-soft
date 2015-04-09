@@ -411,7 +411,8 @@ def data(request):
     return trainers(request)
 
 def schedule(request):
-    return render(request,'schedule.html')
+    client_workout = request.user.user_info.client.workout.all()
+    return render(request,'schedule.html', {'client_workout': client_workout})
 
 def add_workout(request):
      # Like before, get the request's context.

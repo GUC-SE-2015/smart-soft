@@ -32,3 +32,16 @@ class WorkoutForm(forms.ModelForm):
     class Meta:
         model = Workout
         fields = ("workout", "due_date", "client")
+
+
+
+
+
+
+
+    
+
+
+
+ 
+>>>>>>> 381fd9f0bb09b536c011870ae4da3aa9a8a66fc5
