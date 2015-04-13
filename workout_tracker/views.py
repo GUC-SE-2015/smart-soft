@@ -353,8 +353,7 @@ def show(request):
 
 
 def index(request):
-    return render(request, 'workout_tracker/index.html')
-
+    return user_login(request)
 
 def homepage(request):
     return render(request,'Homepage.html')
