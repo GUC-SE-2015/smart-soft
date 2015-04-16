@@ -20,7 +20,7 @@ def view_trainer(request, trainer_id):
 
 def view_client(request, client_id):
     client = Client.objects.get(id=client_id)
-    return render(request,'client_profile.html', {
+    return render(request,'client_home.html', {
         "client":client,
         "owner": False if request.user.is_anonymous() else request.user.user_info.id == client.id})
 
