@@ -399,7 +399,7 @@ def data(request):
 
 def schedule(request):
     client_workout = request.user.user_info.client.workout.all()
-    return render(request,'schedule.html', {'client_workout': client_workout})
+    return render(request,'client_schedule.html', {'client_workout': client_workout})
 
 
 def add_workout(request):
