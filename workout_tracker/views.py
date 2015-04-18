@@ -24,6 +24,12 @@ def view_client(request, client_id):
         "client":client,
         "owner": False if request.user.is_anonymous() else request.user.user_info.id == client.id})
 
+def view_client_info(request, client_id):
+    client = Client.objects.get(id=client_id)
+    return render(request,'profile_client.html', {
+        "client":client,
+        "owner": False if request.user.is_anonymous() else request.user.user_info.id == client.id})
+
 
 def trainers(request):
     return render(request,'trainers.html', {"trainers":Trainer.objects.all()})    
@@ -123,7 +129,7 @@ def provide_client_info(request, user=None, register=False):
         if client_form.is_valid():
             # Save the user's form data to the database.
             user = client_form.save()
-            return render(request, 'client_profile.html', {'client': request.user.id }) 
+            return render(request, 'profile_client.html', {'client': request.user.id }) 
 
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.

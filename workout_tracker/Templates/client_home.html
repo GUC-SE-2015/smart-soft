@@ -87,7 +87,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			   	
 			   </li>
 			   <li><a href="blog.html">Blog</a></li>
-			   <li><a href="pricing.html">Pricing</a></li>
+			   <li><a href="{% url 'view_client_info' client.id %}">Profile</a></li>
 			   <li><a href="contact.html">Contact</a></li>
 			 </ul>
 			  <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
