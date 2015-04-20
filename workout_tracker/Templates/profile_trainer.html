@@ -76,7 +76,7 @@
 			 <ul class="nav">
 			   <li class="active"><a href="#">Home</a></li>
 			   <li><a href="about.html">About</a></li>
-			   <li><a href="{% url 'client_workouts' %}">My Schedule</a></li>
+			   <li><a href="#">My Schedule</a></li>
 			   <li><a href="classes.html">Classes</a>
 			   	
 			   </li>
@@ -95,16 +95,12 @@
 			<!-- start content-top -->
 			<div class="row content-top">
 				 <div class="col-md-5">
-				  <img src="{% static 'images/pic1.jpg' %}" class="img-responsive" alt=""/> 
+				  <img src="{% static 'images/pic.png' %}" class="img-responsive" alt=""/> 
 			     </div>
 				 <div class="col-md-7 content_left_text">
-				   <h3>Trainers</h3>
-				   <p>{% for trainer in trainers %}
-	<a href="{% url 'view_trainer' trainer.id %}">
-		{{ trainer.user.username }}
-	</a>
-	<br>
-{% endfor %}</p>
+				   <h3>My Info</h3>
+				   <p>My name is {{ trainer.user.first_name }} {{ trainer.user.last_name }}<br/> Email :{{trainer.user.email}} </br></br>
+           Experience :{{trainer.experience}}</br></p>
 				 </div>
             </div>
 		 </div>

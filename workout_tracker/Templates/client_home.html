@@ -58,7 +58,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 			<div class="social">	
 			   <ul>	
-				  <li class="facebook"><a href="#"><span> </span></a></li>
+				  <li class="facebook"><a href="www.facebook.com"><span> </span></a></li>
 				  <li class="twitter"><a href="#"><span> </span></a></li>
 				  <li class="pinterest"><a href="#"><span> </span></a></li>	
 				  <li class="google"><a href="#"><span> </span></a></li>
@@ -83,7 +83,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			   <li class="active"><a href="index.html">Home</a></li>
 			   <li><a href="about.html">About</a></li>
 			   <li><a href="{% url 'client_workouts' %}">My Schedule</a></li>
-			   <li><a href="classes.html">Classes</a>
+			   <li><a href="{% url 'trainers' %}">Trainers</a>
 			   	
 			   </li>
 			   <li><a href="blog.html">Blog</a></li>
@@ -104,8 +104,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				  <img src="{% static 'images/pic.png' %}" class="img-responsive" alt=""/> 
 			     </div>
 				 <div class="col-md-7 content_left_text">
-				   <h3>Lorem ipsum dolor sit!</h3>
-				   <p>aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+				   <h3>Welcome to Workout Tracker {{ client.user.first_name }} {{ client.user.last_name }}!</h3>
+				   <p></p>
 				 </div>
             </div>
 		 </div>

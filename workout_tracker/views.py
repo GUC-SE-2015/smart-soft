@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 
 def view_trainer(request, trainer_id):
     trainer = Trainer.objects.get(id=trainer_id)
-    return render(request,'trainer_profile.html', {
+    return render(request,'profile_trainer.html', {
         "trainer":trainer,
         "owner": False if request.user.is_anonymous() else request.user.user_info.id == trainer.id})
 
