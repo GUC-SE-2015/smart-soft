@@ -40,4 +40,14 @@ class UserCreateForm(UserCreationForm):
 class WorkoutForm(forms.ModelForm):
     class Meta:
         model = Workout
-        fields = ("workout", "due_date")
+        fields = ("workout", "due_date", "client")
+
+
+
+
+
+
+
+    
+
+
