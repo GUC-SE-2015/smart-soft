@@ -37,7 +37,7 @@ class Client(UserInfo):
 class Workout(models.Model):
     client = models.ForeignKey(Client, related_name='workout', null=True, blank=True)
     workout = models.TextField()
-    date_posted = models.DateField()
+    date_posted = models.DateField(auto_now_add=True, blank=True)
     due_date = models.DateField()
     posted_by= models.ForeignKey(User, related_name='user', null=True, blank=True)
 
@@ -50,8 +50,3 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.content
-
-
-
-
-
