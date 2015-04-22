@@ -1,10 +1,16 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from workout_tracker import views
+from django.conf import settings
 
 urlpatterns = patterns('',
     
         url(r'^$', views.index, name='index'),
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,}),
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.STATIC_ROOT,
+        }),
     	url(r'^register/$', views.register, name='register'),
         url(r'^login/$', views.user_login, name='login'),
         url(r'^logout/$', views.user_logout, name='logout'),

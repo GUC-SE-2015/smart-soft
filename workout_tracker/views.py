@@ -116,14 +116,14 @@ def provide_client_info(request, user=None, register=False):
         # Note that we make use of both UserForm and UserProfileForm.
         user = User.objects.get(pk=request.POST['user_id'])
         client = Client(user=user)
-        client_form = ClientUserForm(request.POST, instance=client)
+        client_form = ClientUserForm(request.POST,request.FILES, instance=client)
         ##################################################profile_form = userForm(data=request.POST)
 
         # If the two forms are valid...
         if client_form.is_valid():
             # Save the user's form data to the database.
             user = client_form.save()
-            return render(request, 'client_profile.html', {'client': request.user.id }) 
+            return render(request, 'client_profile.html', {'client': client }) 
 
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.

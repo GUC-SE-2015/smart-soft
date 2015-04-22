@@ -12,7 +12,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <a href="/login/">Login</a>
 {% endif %}
 <!DOCTYPE HTML>
+
+
 <html>
+
+    
 <head>
 <title>Usethis Bootstarp Website Template | Home :: w3layouts</title>
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
@@ -61,7 +65,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="header-bottom">
                 <h1><Font Color= "WHITE">Hi. My name is {{ client.user.first_name }} {{ client.user.last_name }}</Font></h1>
                 <h2> <span></span></h2>
-                <a href="#myservices" class="scroll"><img src="{% static 'images/mouse.png' %}" /></a>
+                
+                <a href="#myservices" class="scroll"></a>
                 <p>Scroll</p>
             </div>
         </div>
@@ -89,9 +94,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         {% if owner %} 
                         <li class="active">
                             <a id="s1" class="subNavBtn" href="#">My Profile</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a id="s2" class="subNavBtn" href="#">Upload Profile Picture</a>
                         </li>
                        <li class="page-scroll">
                             <a id="s4" class="subNavBtn" href="{% url 'trainers'%}">My Trainer </a>
@@ -211,7 +213,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="container">
         <div class="wrap">
             <h3 class="m_2">My Info</h3>    
-            <small class="m-2-s"><span> Email :{{client.user.email}} </br>height :{{client.user.height}}  </br>
+            <small class="m-2-s"><span> <img src="{{ client.myImg.url }}" height="100" width="100"/></br>Email :{{client.user.email}} </br>height :{{client.user.height}}  </br>
            weight :{{client.user.weight}}</br>health issue :{{client.user.health_issues}} </span> </small>
         <div class="career-top"
         </div>
@@ -420,4 +422,4 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
     <!--- Footer Ends Here -->
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script> 
