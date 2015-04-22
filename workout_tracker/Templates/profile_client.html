@@ -27,43 +27,6 @@
 <!-- //grid-slider -->
 </head>
 <body>
- <!-- start header_top -->
-	<div class="header">
-	   <div class="container">
-		  <div class="header-text">
-			<h1>Perfect Fitness</h1>
-			<h2>Best Choice For your site</h2>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna</p>
-			<div class="banner_btn">
-				<a href="#">Read More</a>
-			</div>
-		  </div>
-		  <div class="header-arrow">
-		     <a href="#menu" class="class scroll"><span> </span </a>
-		  </div>
-	    </div>
-	  </div>
-	<!-- end header_top -->
-	<!-- start header_bottom -->
-	  <div class="header-bottom">
-		 <div class="container">
-			<div class="header-bottom_left">
-				<i class="phone"> </i><span>1-200-346-2986</span>
-			</div>
-			<div class="social">	
-			   <ul>	
-				  <li class="facebook"><a href="#"><span> </span></a></li>
-				  <li class="twitter"><a href="#"><span> </span></a></li>
-				  <li class="pinterest"><a href="#"><span> </span></a></li>	
-				  <li class="google"><a href="#"><span> </span></a></li>
-				  <li class="tumblr"><a href="#"><span> </span></a></li>
-				  <li class="instagram"><a href="#"><span> </span></a></li>	
-				  <li class="rss"><a href="#"><span> </span></a></li>							
-			   </ul>
-		   </div>
-		   <div class="clear"></div>
-		</div>
-	  </div>
 	<!-- end header_bottom -->
 	<!-- start menu -->
     <div class="menu" id="menu">
@@ -92,15 +55,25 @@
 	<!-- end menu -->
 	 <div class="main">
 	 	 <div class="container">
+		<!--background-color: #ff0000 setting background colour in style-->
+		<a  class="btn" href="/add_workout" >
+	 	 <input class="btn" href="/add_workout" type="button" style="font-family: sans-serif; font-size: 20px; color: Black;" value="Add Workout"></a>
+
+       <a  class="btn" href="/add_workout" >
+		<input class="btn"  href="/add_workout" type="button" style="font-family: sans-serif; font-size: 20px; color: Black; " value="Workout Schedule"></a>
+
 			<!-- start content-top -->
 			<div class="row content-top">
 				 <div class="col-md-5">
 				  <img src="{% static 'images/pic.png' %}" class="img-responsive" alt=""/> 
 			     </div>
 				 <div class="col-md-7 content_left_text">
+       
+
 				   <h3>My Info</h3>
-				   <p>My name is {{ client.user.first_name }} {{ client.user.last_name }}<br/> Email :{{client.user.email}} </br>height :{{client.height}}  </br>
+				   <p style = "font-size: 15px;">My name is: {{ client.user.first_name }} {{ client.user.last_name }}<br/> Email :{{client.user.email}} </br>height :{{client.height}}  </br>
            weight :{{client.weight}}</br>health issue :{{client.health_issues}}</p>
+
 				 </div>
             </div>
 		 </div>

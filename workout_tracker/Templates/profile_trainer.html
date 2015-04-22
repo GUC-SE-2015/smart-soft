@@ -28,39 +28,7 @@
 </head>
 <body>
  <!-- start header_top -->
-	<div class="header">
-	   <div class="container">
-		  <div class="header-text">
-			<h1>Perfect Fitness</h1>
-			<h2>Best Choice For your site</h2>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna</p>
-			<div class="banner_btn">
-				<a href="#">Read More</a>
-			</div>
-		  </div>
-		  <div class="header-arrow">
-		     <a href="#menu" class="class scroll"><span> </span </a>
-		  </div>
-	    </div>
-	  </div>
-	<!-- end header_top -->
-	<!-- start header_bottom -->
-	  <div class="header-bottom">
-		 <div class="container">
-			<div class="header-bottom_left">
-				<i class="phone"> </i><span>1-200-346-2986</span>
-			</div>
-			<div class="social">	
-			   <ul>	
-				  <li class="facebook"><a href="#"><span> </span></a></li>
-				  <li class="twitter"><a href="#"><span> </span></a></li>
-				  <li class="pinterest"><a href="#"><span> </span></a></li>	
-				  <li class="google"><a href="#"><span> </span></a></li>
-				  <li class="tumblr"><a href="#"><span> </span></a></li>
-				  <li class="instagram"><a href="#"><span> </span></a></li>	
-				  <li class="rss"><a href="#"><span> </span></a></li>							
-			   </ul>
-		   </div>
+	
 		   <div class="clear"></div>
 		</div>
 	  </div>
@@ -101,6 +69,10 @@
 				   <h3>My Info</h3>
 				   <p>My name is {{ trainer.user.first_name }} {{ trainer.user.last_name }}<br/> Email :{{trainer.user.email}} </br></br>
            Experience :{{trainer.experience}}</br></p>
+
+           {% if  not owner %}
+           <button type="button" onclick="alert('Thank you')">Follow Me!</button>
+           {% endif %}
 				 </div>
             </div>
 		 </div>

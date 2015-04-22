@@ -87,14 +87,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 <div class="h_menu4"><!-- start h_menu4 -->
 		   <a class="toggleMenu" href="#">Menu</a>
 			 <ul class="nav">
-			   <li class="active"><a href="index.html">Home</a></li>
-			   <li><a href="about.html">About</a></li>
-			   <li><a href="{% url 'client_workouts' %}">My Schedule</a></li>
-			   <li><a href="{% url 'trainers' %}">Trainers</a>
+			   <li class="active"><a href="/">Home</a></li>
+			   <li><a href="#">About</a></li>
+			   <li><a href= "{% url 'clients' %}">My Clients</a></li>
+			   <li><a href="#">Follow requests</a>
 			   	
 			   </li>
 			   <li><a href="blog.html">Blog</a></li>
-			   <li><a href="{% url 'view_client_info' client.id %}">Profile</a></li>
+			   <li><a href="{% url 'view_trainer_info' trainer.id %}">Profile</a></li>
 			   <li><a href="contact.html">Contact</a></li>
 			 </ul>
 			  <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
@@ -111,7 +111,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				  <img src="{% static 'images/pic.png' %}" class="img-responsive" alt=""/> 
 			     </div>
 				 <div class="col-md-7 content_left_text">
-				   <h3>Welcome to Workout Tracker {{ client.user.first_name }} {{ client.user.last_name }}!</h3>
+				   <h3>Welcome to Workout Tracker {{ trainer.user.first_name }} {{ trainer.user.last_name }}!</h3>
 				   <p></p>
 				 </div>
             </div>

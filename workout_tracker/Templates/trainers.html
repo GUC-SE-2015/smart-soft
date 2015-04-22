@@ -100,7 +100,7 @@
 				 <div class="col-md-7 content_left_text">
 				   <h3>Trainers</h3>
 				   <p>{% for trainer in trainers %}
-	<a href="{% url 'view_trainer' trainer.id %}">
+	<a href="{% url 'view_trainer_info' trainer.id %}">
 		{{ trainer.user.username }}
 	</a>
 	<br>

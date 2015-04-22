@@ -13,6 +13,13 @@ from django.contrib.auth.decorators import login_required
 
 def view_trainer(request, trainer_id):
     trainer = Trainer.objects.get(id=trainer_id)
+    return render(request,'trainer_home.html', {
+        "trainer":trainer,
+        "owner": False if request.user.is_anonymous() else request.user.user_info.id == trainer.id})
+
+
+def view_trainer_info(request, trainer_id):
+    trainer = Trainer.objects.get(id=trainer_id)
     return render(request,'profile_trainer.html', {
         "trainer":trainer,
         "owner": False if request.user.is_anonymous() else request.user.user_info.id == trainer.id})
@@ -40,7 +47,7 @@ def clients(request):
     return render(request,'clients.html', {"clients":Client.objects.all()})    
 
 
-def trainers_clients(request):
+"""def trainers_clients(request):
 
     user = {
     "name":"keshk",
@@ -50,10 +57,10 @@ def trainers_clients(request):
     "weight":"67 KG",
 
     }
-    return render(request,'trainer_client.html',{"user":user})   
+    return render(request,'trainer_client.html',{"user":user}) """  
 
 
-def clients_trainers(request):
+"""def clients_trainers(request):
 
     user = {
     "name":"keshk",
@@ -63,7 +70,7 @@ def clients_trainers(request):
     "weight":"67 KG",
 
     }
-    return render(request,'client_trainer.html',{"user":user})   
+    return render(request,'client_trainer.html',{"user":user})  |""" 
 
    
 def provide_trainer_info(request, user=None, register=False):
@@ -423,7 +430,7 @@ def schedule(request):
     return render(request,'client_schedule.html', {'client_workout': client_workout})
 
 
-    def add_workout(request):
+def add_workout(request):
      # Like before, get the request's context.
     context = RequestContext(request)
 
