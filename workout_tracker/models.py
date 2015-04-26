@@ -11,6 +11,15 @@ USER_TYPE_CHOICES = (
     ('client', 'client'),
     )
 
+TITLE_CHOICES = (
+    ('Arm', 'Arm'),
+    ('Legs', 'Legs'),
+    ('Deltoids', 'Deltoids'),
+    ('Chest', 'Chest'),
+    ('Back', 'Back'),
+    ('Fitness', 'Fitness'),
+    )
+
 class UserInfo(models.Model):
     user = models.OneToOneField(User, related_name='user_info')
     date_of_birth = models.DateField()
@@ -36,7 +45,7 @@ class Client(UserInfo):
 
 class Workout(models.Model):
     client = models.ForeignKey(Client, related_name='workout', null=True, blank=True)
-    workout = models.TextField()
+    title = models.CharField(max_length=256, choices=TITLE_CHOICES)
     date_posted = models.DateField(auto_now_add=True, blank=True)
     due_date = models.DateField()
     posted_by= models.ForeignKey(User, related_name='user', null=True, blank=True)
