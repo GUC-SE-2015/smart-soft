@@ -576,3 +576,13 @@ def add_workout(request):
 
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)
+
+def update(request):
+   UserInfo = UserInfo.objects.get(pk= request.user.id)
+   #you can do this for as many fields as you like
+   #here I asume you had a form with input like <input type="text" name="name"/>
+   #so it's basically like that for all form fields
+   UserInfo.name = request.POST.get('name')
+   UserInfo.save()
+   return HttpResponse('updated')
+

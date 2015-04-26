@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from workout_tracker import views
-from workout_tracker.views import home, search, addComment, viewComment
+from workout_tracker.views import home, search, addComment, viewComment, update
 
 urlpatterns = patterns('',
     
@@ -30,6 +30,8 @@ urlpatterns = patterns('',
         #url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
         #url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
         url(r'^add_workout/$', views.add_workout, name='add_workout')
+        url(r'^update/$', views.update, name='update')
+ 
  
 
 )

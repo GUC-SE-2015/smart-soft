@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<head>
+<title>update</title>
+<style>
+h1{
+  text-align: center;
+}
+
+body{
+  text-align: center;
+  background: white;
+  color: black;
+  font-family: helvetica;
+}
+</style>
+<body>
+
+
+
+    <form method='get' action ="{% url 'update' %}">{% csrf_token %}
+    	<input type="text" name="name">
+    	<input type="submit" value="update">
+    </form>
+
+
+
+
+</body>
+
+
