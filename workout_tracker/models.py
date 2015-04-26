@@ -11,12 +11,11 @@ USER_TYPE_CHOICES = (
     ('client', 'client'),
     )
 
-
 class UserInfo(models.Model):
     user = models.OneToOneField(User, related_name='user_info')
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    #myImg = models.ImageField("Profile Pic", upload_to="images/", blank=True, null=True)
+    myImg = models.ImageField("Profile Pic", upload_to="images/", blank=True, null=True)
     type = models.CharField(max_length=256, choices=USER_TYPE_CHOICES)
 
     def __unicode__(self):
@@ -38,7 +37,7 @@ class Client(UserInfo):
 class Workout(models.Model):
     client = models.ForeignKey(Client, related_name='workout', null=True, blank=True)
     workout = models.TextField()
-    date_posted = models.DateField()
+    date_posted = models.DateField(auto_now_add=True, blank=True)
     due_date = models.DateField()
     posted_by= models.ForeignKey(User, related_name='user', null=True, blank=True)
 
