@@ -264,7 +264,6 @@ def user_login(request):
                 return view_client(request, user_info.id) 
 
 
-
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
@@ -340,7 +339,7 @@ def create_follow_request(request):
     # Can optionally save a message when creating friend requests
     message_relationship = Friend.objects.add_friend(
         from_user=request.user,
-        to_user=some_other_user,
+        to_user= some_other_user,
         message='Hi, I would like to be your friend',
     )
 
