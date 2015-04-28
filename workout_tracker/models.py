@@ -50,4 +50,9 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.content
-
+class goal(models.Model):
+    user = models.OneToOneField(Client, related_name='goal')
+    date_posted = models.DateField(auto_now_add=True)
+    due_date = models.DateField()
+    posted_by = models.ForeignKey(User, related_name='poster')
+    description = models.TextField()

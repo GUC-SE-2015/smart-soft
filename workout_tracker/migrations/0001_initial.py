@@ -24,6 +24,19 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='goal',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_posted', models.DateField(auto_now_add=True)),
+                ('due_date', models.DateField()),
+                ('description', models.TextField()),
+                ('posted_by', models.ForeignKey(related_name='poster', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='UserInfo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -66,7 +79,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('workout', models.TextField()),
-                ('date_posted', models.DateField()),
+                ('date_posted', models.DateField(auto_now_add=True)),
                 ('due_date', models.DateField()),
                 ('client', models.ForeignKey(related_name='workout', blank=True, to='workout_tracker.Client', null=True)),
                 ('posted_by', models.ForeignKey(related_name='user', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
@@ -79,6 +92,12 @@ class Migration(migrations.Migration):
             model_name='userinfo',
             name='user',
             field=models.OneToOneField(related_name='user_info', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='goal',
+            name='user',
+            field=models.OneToOneField(related_name='goal', to='workout_tracker.Client'),
             preserve_default=True,
         ),
     ]
