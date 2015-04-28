@@ -24,3 +24,6 @@ class Client(models.Model):
     health_issues = models.CharField(max_length=2000)
     weight = models.FloatField()
     height = models.FloatField()
+
+class Goal (models.Model):
+	
