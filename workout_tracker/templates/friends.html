@@ -67,15 +67,18 @@
 				  <img src="{% static 'images/pic.png' %}" class="img-responsive" alt=""/> 
 			     </div>
 				 <div class="col-md-7 content_left_text">
+				 <a href="{% url 'friends'}">
+		
 		{% load friendshiptags %}
 
 {% friends user %}
 {% followers user %}
 {% following user %}
 {% friend_requests user %}
+<a/>
 	</div>
 
 
 				 </div>
             </div>
-		 </div>
+		 </div>}
