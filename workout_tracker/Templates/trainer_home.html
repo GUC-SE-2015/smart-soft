@@ -79,9 +79,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			 <ul class="nav">
 			   <li class="active"><a href="/">Home</a></li>
 			   <li><a href="#">About</a></li>
-			   <li><a href= "{% url 'clients' %}">My Clients</a></li>
-			   <li><a href="#">Follow requests</a>
-			   	
+			   <li><a href= "{% url 'friends' %}">My Clients</a></li>
+			   <li><a href="{%url 'view_pending'%}">Follow requests</a>
+			   
 			   </li>
 			   <li><a href="blog.html">Blog</a></li>
 			   <li><a href="{% url 'view_trainer_info' trainer.id %}">Profile</a></li>
