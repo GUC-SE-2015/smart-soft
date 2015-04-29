@@ -44,12 +44,6 @@
 			 <ul class="nav">
 			   <li class="active"><a href="#">Home</a></li>
 			   <li><a href="about.html">About</a></li>
-			   <li><a href="#">My Schedule</a></li>
-			   <li><a href="classes.html">Classes</a>
-			   	
-			   </li>
-			   <li><a href="blog.html">Blog</a></li>
-			   <li><a href="#">Profile</a></li>
 			   {% if not owner %}
 			   <li><a href="{% url 'follow' trainer.id %}">Follow Me</a></li>
 			   {% endif %}
