@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Add Workouts</title>
+        <title>Add Exercises</title>
     </head>
 
     <body>
-        <h1>Add Workouts</h1>
+        <h1>Add Exercises</h1>
 
-        <form id="workout_form" method="post" action="/add_workout/"
+        <form id="exercise_form" method="post" action="/add_exercise/workout_id"
                 enctype="multipart/form-data">
 
             {% csrf_token %}
@@ -19,7 +19,7 @@
                  making everything look neater. -->
             <!--{{ workout_form.as_p }} -->
 
-            {% for field in workout_form %}
+            {% for field in exercise_form %}
                 <br>
                 <label style='color:red;'>{{ field.label }}</label>
                 <br>
@@ -27,7 +27,7 @@
             {% endfor %}
 
             <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Add Exercises" />
+            <input type="submit" name="submit" value="Add" />
         </form>
     </body>
 </html>

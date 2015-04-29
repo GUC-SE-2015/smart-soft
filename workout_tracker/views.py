@@ -3,8 +3,8 @@ from django.template import RequestContext
 from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm
-from models import Trainer, Client, User, UserInfo
+from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm, ExerciseForm
+from models import Trainer, Client, User, UserInfo, Workout, Exercise
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -80,35 +80,10 @@ def provide_trainer_info(request, user=None, register=False):
         if trainer_form.is_valid():
             # Save the user's form data to the database.
             trainer_form.save()
-            # user = trainer_form.save()
-            # user_info = request.user.user_info
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             return view_trainer(request, user.user_info.id)
-            #current_user=Trainer.objects.get(id=request.user.id)
-            #return render_to_response('trainer_profile.html', {'current_user': current_user}, context)
-            #return render(request, 'trainer_profile.html', {'trainer': current_user.id }) 
-            #return view_trainer(request, user_info.id)
 
-
-            # Now we hash the password with the set_password method.
-            # Once hashed, we can update the user object.
-            #user.set_password(user.password)
-            #user.save()
-
-            # Now sort out the UserProfile instance.
-            # Since we need to set the user attribute ourselves, we set commit=False.
-            # This delays saving the model until we're ready to avoid integrity problems.
-            ##################################################profile = profile_form.save(commit=False)
-            ##################################################profile.user = user
-
-            # Did the user provide a profile picture?
-            # If so, we need to get it from the input form and put it in the UserProfile model.
-            ##################################################if 'picture' in request.FILES:
-                ##################################################profile.picture = request.FILES['picture']
-
-            # Now we save the UserProfile model instance.
-            ##################################################profile.save()
 
             # Update our variable to tell the template registration was successful.
             registered = True
@@ -414,6 +389,7 @@ def schedule(request):
     client_workout = request.user.user_info.client.workout.all()
     return render(request,'schedule.html', {'client_workout': client_workout})
 
+#Done By: Noha Gomaa Url:/add_workout
 def add_workout(request):
 
      # Like before, get the request's context.
@@ -428,10 +404,11 @@ def add_workout(request):
         if workout_form.is_valid():
 
             # Save the user's form data to the database.
-            user = workout_form.save(commit=False)
-            user.posted_by = request.user
-            user.save()
-            return render_to_response('add_workout.html', {'workout_form': workout_form}, context)
+            workout = workout_form.save(commit=False)
+            workout.posted_by = request.user
+            workout.save()
+            return add_exercise(request, workout_id= workout.id)
+            #return render_to_response('add_workout.html', {'workout_form': workout_form}, context)
 
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
@@ -445,4 +422,55 @@ def add_workout(request):
         workout_form = WorkoutForm()
 
     # Render the template depending on the context.
-    return render_to_response('add_workout.html',{'workout_form': workout_form},context)               
+    return render_to_response('add_workout.html',{'workout_form': workout_form},context)      
+
+#Done By: Noha Gomaa Url:/add_exercise
+def add_exercise(request, workout_id ):
+
+        # Like before, get the request's context.
+    context = RequestContext(request)
+
+    # A boolean value for telling the template whether the registration was successful.
+    # Set to False initially. Code changes value to True when registration succeeds.
+    registered = False
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method =='POST' :
+        # Attempt to grab information from the raw form information.
+        exercise_form = ExerciseForm(data=request.POST)
+
+        # If the two forms are valid...
+        if exercise_form.is_valid():
+            # Save the user's form data to the database.
+            exercise = exercise_form.save(commit=False)
+            exercise.workout = Workout.objects.get(pk=workout_id)
+            exercise.save()
+            return add_exercise(request, workout_id=workout.id)
+
+
+            # Update our variable to tell the template registration was successful.
+            registered = True
+
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        #else:
+            #print user_form.errors
+    else:
+        exercise_form = ExerciseForm()
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    #else:
+        #user_form = CustomUserForm()
+        ##################################################profile_form = userForm()
+
+    # Render the template depending on the context.
+    return render_to_response(
+            'add_exercise.html',
+            {'exercise_form': exercise_form},
+            context)    
+
+
+
+
+
