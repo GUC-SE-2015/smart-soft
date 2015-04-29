@@ -45,7 +45,7 @@
 			   <li class="active"><a href="#">Home</a></li>
 			   <li><a href="about.html">About</a></li>
 			   {% if not owner %}
-			   <li><a href="{% url 'follow' trainer.id %}">Follow Me</a></li>
+			   <li><a href="{% url 'follow' trainer.id %}" onclick="alert('Request Sent')">Follow Me</a></li>
 			   {% endif %}
 			 </ul>
 			  <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
@@ -69,6 +69,16 @@
            {% if  not owner %}
            <button type="button" href= "{% url 'follow' trainer.id %}" onclick="alert('Thank you')">Follow Me!</button>
            {% endif %}
+           <script>
+function changeText()
+{
+ document.getElementById('2').innerHTML = 'Fred Flinstone';
+}
+</script>
+<p>Welcome to the site <b id='boldStuff'>dude</b> </p> 
+<input type='button' id='2' onclick='changeText()' value='Change Text'/>
+</body>
+</html>
 				 </div>
             </div>
 		 </div>

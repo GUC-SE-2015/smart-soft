@@ -2,32 +2,63 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Free Gym Website Template | Login :: w3layouts</title>
-<link href= "{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<title>Free Gym Website Template | Home :: w3layouts</title>
+<link href="{% static 'css/bootstrap.css'%}" rel='stylesheet' type='text/css' />
 <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />-->
 <script src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){     
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
+            });
+        });
+    </script>
+<!-- grid-slider -->
+<script type="text/javascript" src="{% static 'js/jquery.mousewheel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.contentcarousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+<!-- //grid-slider -->
 </head>
-<html>
-        <title>Workout-Tracker</title>
-
-    <body>
-        <h1>Sign-Up with Workout-Tracker</h1>
+<body>
+ <!-- start header_top -->
+    
+           <div class="clear"></div>
+        </div>
+      </div>
+    <!-- end header_bottom -->
+    <!-- start menu -->
+             </ul>
+              <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
+          </div><!-- end h_menu4 -->
+         <div class="clear"></div>
+      </div>
+    </div>
+    <!-- end menu -->
+     <div class="main">
+         <div class="container">
+            <!-- start content-top -->
+            <div class="row content-top">
+                 <div class="col-md-5">
+                  <img src="{% static 'images/pic.png' %}" class="img-responsive" alt=""/> 
+                 </div>
+                 <div class="col-md-7 content_right_text">
 
         {% if registered %}
         <strong>Thank you for Signing Up!</strong>
         <a href="">Return to the homepage.</a><br />
         {% else %}
-        <strong>Sign-Up here!</strong><br />
+        <strong></strong><br />
 
-        <form id="user_form" method="post" action="/register/"
-                enctype="multipart/form-data">
+        <form id="user_form" method="post" action="/register/" enctype="multipart/form-data">
 
-            {% csrf_token %}
+            <br/> {%  csrf_token  %}
 
             <!-- Display each form. The as_p method wraps each element in a paragraph
                  (<p>) element. This ensures each element appears on a new line,
@@ -44,7 +75,7 @@
 
         $('#submit_trainer').click(function(){
             $('#user_form').attr('action',$('#user_form').attr('action')+'trainer/')
-            $('#user_form').submit()
+            $('#user_form').submit() 
         })
 
         $('#submit_client').click(function(){
@@ -56,7 +87,6 @@
         {% endif %}
         </form>
         
-
-
-    </body>
-</html>
+                 </div>
+            </div>
+         </div>

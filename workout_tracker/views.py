@@ -332,17 +332,16 @@ def view_pending(request):
     return render(request, 'pending_follow_requests.html', {'unrejects': unrejects})
 
 
-def create_follow_request(request,tid):
+def create_follow_request(request, tid):
     trainer = User.objects.get(pk=tid)
     new_relationship = Friend.objects.add_friend(request.user, trainer)
-    return view_trainer_info(request,tid)
-
+    return view_trainer_info(request, tid)
     # Can optionally save a message when creating friend requests
-    message_relationship = Friend.objects.add_friend(
-        from_user=request.user,
-        to_user= some_other_user,
-        message='Hi, I would like to be your friend',
-    )
+   # message_relationship = Friend.).get(pk=1)cts.add_friend(
+       # from_user=request.user,
+       # to_user= some_other_user,
+       # message='Hi, I would like to be your friend',
+    #)
 
 
 def accept(request, pid):
