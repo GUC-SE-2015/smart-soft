@@ -23,5 +23,6 @@ urlpatterns = patterns('',
         url(r'^data/$', views.data, name='data'),
         # url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
         # url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
-        url(r'^add_workout/$', views.add_workout, name='add_workout')
+        url(r'^add_workout/$', views.add_workout, name='add_workout'),
+        url(r'^add_goal/$', views.add_goal, name='add_goal')
 )
