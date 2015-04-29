@@ -24,6 +24,8 @@ urlpatterns = patterns('',
         url(r'^clients/$', views.clients, name='clients'),
         url(r'^data/$', views.data, name='data'),
         url(r'^follow/(?P<tid>\d+)$', views.create_follow_request, name='follow'),
+        url(r'^friends/$', views.view_clients, name='friends'),
+
 
         # url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
         # url(r'^clients_trainers/$', views.clients_trainers, name='clients'),

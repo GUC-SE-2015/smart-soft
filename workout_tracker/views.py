@@ -170,7 +170,7 @@ def provide_client_info(request, user=None, register=False):
             client_form.save()
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
-            return view_client(request, user.user_info.id) 
+            return view_client(request, user.user_info.id)
 
             # Now sort out the UserProfile instance.
             # Since we need to set the user attribute ourselves, we set commit=False.
@@ -347,12 +347,14 @@ def create_follow_request(request,tid):
 
 def accept(request, pid):
     FriendshipRequest.objects.get(id=pid).accept()
-    return HttpResponse('friend accepted')
+    user_info = request.user.user_info
+    return view_trainer(request,user_info.id)
 
 
 def reject(request, pid):
     FriendshipRequest.objects.get(id=pid).reject()
-    return HttpResponse('friend rejected')
+    user_info = request.user.user_info
+    return view_trainer(request,user_info.id)
 
 
 def search(request):
@@ -461,3 +463,5 @@ def add_workout(request):
 
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)               
+
+
