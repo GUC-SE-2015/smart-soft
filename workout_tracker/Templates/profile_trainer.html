@@ -50,7 +50,7 @@
 			   </li>
 			   <li><a href="blog.html">Blog</a></li>
 			   <li><a href="#">Profile</a></li>
-			   <li><a href="{% url 'follow' %}">Follow Me</a></li>
+			   <li><a href="{% url 'follow' trainer.id %}">Follow Me</a></li>
 			 </ul>
 			  <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 		  </div><!-- end h_menu4 -->
@@ -71,7 +71,7 @@
            Experience :{{trainer.experience}}</br></p>
 
            {% if  not owner %}
-           <button type="button" href= "{% url 'follow' %}" onclick="alert('Thank you')">Follow Me!</button>
+           <button type="button" href= "{% url 'follow' trainer.id %}" onclick="alert('Thank you')">Follow Me!</button>
            {% endif %}
 				 </div>
             </div>
