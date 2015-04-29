@@ -33,6 +33,11 @@ class WorkoutForm(forms.ModelForm):
         model = Workout
         fields = ("workout", "due_date", "client")
 
+class goalForm(forms.ModelForm):
+    class Meta;
+        model = goal
+        fields = ("description", "due_date")
+
 
 
 
