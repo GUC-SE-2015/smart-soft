@@ -1,14 +1,14 @@
+
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm, CommentForm
-from models import Trainer, Client, User, UserInfo, Comment
+from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm, CommentForm, ExerciseForm
+from models import Trainer, Client, User, UserInfo, Comment, Workout, Exercise 
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-
 
 
 def view_trainer(request, trainer_id):
@@ -510,14 +510,61 @@ def edit_info(request, u_id):
         user.height = request.POST['height']
         user.save()
 
-      return render_to_response('client_profile.html',{'user':user, 'client
-
-
-        ':user_info}, context_instance=RequestContext(request))
+      return render_to_response('client_profile.html',{'user':user, 'client':user_info}, context_instance=RequestContext(request))
 
     else: 
       return render_to_response('update.html',{'u':user, 'u2':user_info}, context_instance=RequestContext(request))
- 
+
+
+      #Done By: Noha Gomaa Url:/add_exercise
+def add_exercise(request, workout_id ):
+
+        # Like before, get the request's context.
+    context = RequestContext(request)
+
+    # A boolean value for telling the template whether the registration was successful.
+    # Set to False initially. Code changes value to True when registration succeeds.
+    registered = False
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method =='POST' :
+        # Attempt to grab information from the raw form information.
+        exercise_form = ExerciseForm(data=request.POST)
+
+        # If the two forms are valid...
+        if exercise_form.is_valid():
+            # Save the user's form data to the database.
+            exercise = exercise_form.save(commit=False)
+            exercise.workout = Workout.objects.get(pk=workout_id)
+            exercise.save()
+            return HttpResponseRedirect('/add_exercise/%s' % workout_id ) 
+            
+
+
+            # Update our variable to tell the template registration was successful.
+            registered = True
+
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        #else:
+            #print user_form.errors
+    else:
+        exercise_form = ExerciseForm()
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    #else:
+        #user_form = CustomUserForm()
+        ##################################################profile_form = userForm()
+
+    # Render the template depending on the context.
+    return render_to_response(
+            'add_exercise.html',
+            {'exercise_form': exercise_form,
+            'workout_id': workout_id,
+            },
+            context)    
+
 
 def stat(request):
 

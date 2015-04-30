@@ -11,6 +11,15 @@ USER_TYPE_CHOICES = (
     ('client', 'client'),
     )
 
+TITLE_CHOICES = (
+    ('Arm', 'Arm'),
+    ('Legs', 'Legs'),
+    ('Deltoids', 'Deltoids'),
+    ('Chest', 'Chest'),
+    ('Back', 'Back'),
+    ('Fitness', 'Fitness'),
+    )
+
 class UserInfo(models.Model):
     user = models.OneToOneField(User, related_name='user_info')
     date_of_birth = models.DateField()
@@ -35,14 +44,27 @@ class Client(UserInfo):
     height = models.FloatField()
 
 class Workout(models.Model):
-    client = models.ForeignKey(Client, related_name='workout', null=True, blank=True)
-    workout = models.TextField()
-    date_posted = models.DateField(auto_now_add=True, blank=True)
+    client = models.ForeignKey(Client, related_name='workout')
+    title = models.CharField(max_length=256, choices=TITLE_CHOICES)
+    date_posted = models.DateField(auto_now_add=True)
     due_date = models.DateField()
-    posted_by= models.ForeignKey(User, related_name='user', null=True, blank=True)
+    posted_by= models.ForeignKey(User, related_name='user')
+    done = models.NullBooleanField()
 
     def __unicode__(self):
-        return self.workout
+        return self.title
+
+class Exercise(models.Model):
+    workout = models.ForeignKey(Workout, related_name='exercise')
+    description = models.TextField()
+    count = models.PositiveIntegerField()
+    lap = models.PositiveIntegerField()
+    weight = models.PositiveIntegerField(null =True, blank = True)
+
+    def __unicode__(self):
+        return self.description
+
+
 
 class Comment(models.Model):
     content= models.TextField()
