@@ -427,9 +427,14 @@ def data(request):
     return trainers(request)
 
 
-def schedule(request):
+def schedule_trainer(request,client_id):
+    client_workout = Client.objects.get(id=client_id).workout.all()
+    return render(request,'client_schedule.html', {'client_workout': client_workout, 'client_id': client_id})
+
+def schedule_client(request):
     client_workout = request.user.user_info.client.workout.all()
     return render(request,'client_schedule.html', {'client_workout': client_workout})
+
 
 
 def add_workout(request):
