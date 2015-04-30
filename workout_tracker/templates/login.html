@@ -25,6 +25,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </body>
 </html> -->
 {% load staticfiles %}
+{% if user.is_authenticated %}
+<a href="/logout/">Logout</a>
+{% else %}
+<a href="/register/">Sign-Up</a>
+<a href="/login/">Login</a>
+{% endif %}
 <!DOCTYPE HTML>
 <html>
 <head>

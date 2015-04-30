@@ -341,7 +341,7 @@ def create_follow_request(request,tid):
     message_relationship = Friend.objects.add_friend(
         from_user=request.user,
         to_user= some_other_user,
-        message='Hi, I would like to be your friend',
+        message='Hi, I would like to follow you',
     )
 
 
