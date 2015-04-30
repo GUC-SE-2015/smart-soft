@@ -15,7 +15,7 @@ class UserInfo(models.Model):
     user = models.OneToOneField(User, related_name='user_info')
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    myImg = models.ImageField("Profile Pic", upload_to="images/", blank=True, null=True)
+   # myImg = models.ImageField("Profile Pic", upload_to="images/", blank=True, null=True)
     type = models.CharField(max_length=256, choices=USER_TYPE_CHOICES)
 
     def __unicode__(self):

@@ -471,11 +471,54 @@ def add_workout(request):
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)               
 
 
-def update(request):
-   UserInfo = UserInfo.objects.get(pk= request.user.id)
-   #you can do this for as many fields as you like
-   #here I asume you had a form with input like <input type="text" name="name"/>
-   #so it's basically like that for all form fields
-   UserInfo.name = request.POST.get('name')
-   UserInfo.save()
-   return HttpResponse('updated')
+def update (request, u_id):
+    u=User.objects.filter(id=u_id)
+    u2=UserInfo.objects.filter(user=u)
+    
+    return render_to_response('update.html', {'u':u, 'u2': u2}, context_instance=RequestContext(request)) 
+    
+         
+
+
+"""def update (request):
+    u=request.user.id
+    return render_to_response('update.html', {'u':u}, context_instance=RequestContext(request))"""
+
+
+def edit_info(request, u_id):
+    user = request.user
+    user_info = user.user_info
+
+    if request.POST:
+      user.first_name = request.POST['firstname']
+      user.last_name = request.POST['lastname']
+      user.save()
+      user.set_password(request.POST['newpassword'])
+
+
+      if user_info.type == 'trainer':
+        user_info = user.user_info
+        user_info.phone = request.POST['phone']
+        user_info.experience = request.POST['experience']
+        user_info.education = request.POST['education']
+        user_info.save()
+
+        return render_to_response('trainer_profile.html',{'user':user, 'trainer':user_info}, context_instance=RequestContext(request))
+
+
+      else:  
+
+        user.health_issues = request.POST['health_issues']
+        user.save()
+
+        user.weight = request.POST['weight'] 
+        user.save()
+
+        user.height = request.POST['height']
+        user.save()
+
+      return render_to_response('client_profile.html',{'user':user, 'client':user_info}, context_instance=RequestContext(request))
+
+    else: 
+      return render_to_response('update.html',{'u':user, 'u2':user_info}, context_instance=RequestContext(request))
+ 

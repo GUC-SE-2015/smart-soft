@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('workout', models.TextField()),
-                ('date_posted', models.DateField()),
+                ('date_posted', models.DateField(auto_now_add=True)),
                 ('due_date', models.DateField()),
                 ('client', models.ForeignKey(related_name='workout', blank=True, to='workout_tracker.Client', null=True)),
                 ('posted_by', models.ForeignKey(related_name='user', blank=True, to=settings.AUTH_USER_MODEL, null=True)),

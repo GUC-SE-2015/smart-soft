@@ -1,7 +1,7 @@
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from workout_tracker.views import home, search
+from workout_tracker.views import search
 from workout_tracker import views
 
 
