@@ -9,7 +9,7 @@
     <body>
         <h1>Add Exercises</h1>
 
-        <form id="exercise_form" method="post" action="/add_exercise/workout_id"
+        <form id="exercise_form" method="post" action="/add_exercise/{{workout_id}}"
                 enctype="multipart/form-data">
 
             {% csrf_token %}

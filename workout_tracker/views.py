@@ -445,7 +445,8 @@ def add_exercise(request, workout_id ):
             exercise = exercise_form.save(commit=False)
             exercise.workout = Workout.objects.get(pk=workout_id)
             exercise.save()
-            return add_exercise(request, workout_id=workout.id)
+            return HttpResponseRedirect('/add_exercise/%s' % workout_id ) 
+            
 
 
             # Update our variable to tell the template registration was successful.
@@ -467,7 +468,9 @@ def add_exercise(request, workout_id ):
     # Render the template depending on the context.
     return render_to_response(
             'add_exercise.html',
-            {'exercise_form': exercise_form},
+            {'exercise_form': exercise_form,
+            'workout_id': workout_id,
+            },
             context)    
 
 
