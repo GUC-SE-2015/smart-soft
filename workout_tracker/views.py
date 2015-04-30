@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from friendship.models import Friend, Follow
@@ -567,8 +566,14 @@ def add_exercise(request, workout_id ):
 
 
 def stat(request):
-
-    x=Workout.objects.filter(client.id = request.user.id).count()
-    y=Workout.objects.filter(client.id = request.user.id and workout.done =true).count()
-    result = (x/y)*100
-    return HttpResponse('result')
+    user = request.user
+    x=len(Workout.objects.filter(client=user.user_info))
+    y=len(Workout.objects.filter(done=True, client=user.user_info))
+    print "y: ", y
+    if x != 0:
+        print "here"
+        result = 100*y/x
+        print 'resutl', result
+    else:
+        result = 0
+    return HttpResponse(result)

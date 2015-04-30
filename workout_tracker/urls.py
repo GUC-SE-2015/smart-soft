@@ -33,7 +33,8 @@ urlpatterns = patterns('',
         url(r'^edit_info/(?P<u_id>\d+)$', edit_info, name='edit_info'),
         url(r'^update/(?P<u_id>\d+)$', update, name='update'),
         #url(r'^profile/update/profile/(?P<u_id>\d+)$', profile, name='profile'),
-        url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise')
+        url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise'),
+        url(r'^stat/$', views.stat, name='stat'),
 
 
 
