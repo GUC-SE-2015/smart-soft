@@ -337,12 +337,11 @@ def create_follow_request(request, tid):
     new_relationship = Friend.objects.add_friend(request.user, trainer)
     return view_trainer_info(request, tid)
     # Can optionally save a message when creating friend requests
-   # message_relationship = Friend.).get(pk=1)cts.add_friend(
-       # from_user=request.user,
-       # to_user= some_other_user,
-       # message='Hi, I would like to be your friend',
-    #)
-
+    message_relationship = Friend.objects.add_friend(
+        from_user=request.user,
+        to_user= some_other_user,
+        message='Hi, I would like to follow you',
+    )
 
 def accept(request, pid):
     FriendshipRequest.objects.get(id=pid).accept()
@@ -426,7 +425,11 @@ def data(request):
     return trainers(request)
 
 
-def schedule(request):
+def schedule_trainer(request,client_id):
+    client_workout = Client.objects.get(id=client_id).workout.all()
+    return render(request,'client_schedule.html', {'client_workout': client_workout, 'client_id': client_id})
+
+def schedule_client(request):
     client_workout = request.user.user_info.client.workout.all()
     return render(request,'client_schedule.html', {'client_workout': client_workout})
 
@@ -514,3 +517,4 @@ def add_exercise(request, workout_id ):
             'workout_id': workout_id,
             },
             context)    
+

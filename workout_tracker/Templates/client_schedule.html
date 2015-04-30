@@ -5,10 +5,16 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 {% load staticfiles %}
+{% if user.is_authenticated %}
+<a href="/logout/">Logout</a>
+{% else %}
+<a href="/register/">Sign-Up</a>
+<a href="/login/">Login</a>
+{% endif %}
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Free Gym Website Template | Trainers :: w3layouts</title>
+<title>Workout tracker | Trainers :: w3layouts</title>
 <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
 <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,20 +38,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="header-bottom_left">
 				
 			</div>
-		   <div class="clear"></div>
-		</div>
-	  </div>
-	  <!-- start menu -->
-    <div class="menu">
-	  <div class="container">
-		 <div class="logo">
-			<a href="index.html"><img src="{% static 'images/logo.png' %}" alt=""/></a>
-		 </div>
-		 <div class="h_menu4"><!-- start h_menu4 -->
-		   <a class="toggleMenu" href="#">Menu</a>
-			 <ul class="nav">
-			   <li class="active"><a href="index.html">Home</a></li>
-			   <li><a href="about.html">About</a></li>
+			<div class="social">	
+			   <ul>	
+				
+		   </div>
 			   <li><a href="#">My Schedule</a></li>
 			   <li><a href="#">Trainers</a>
 			   <li><a href="#">Profile</a></li>
