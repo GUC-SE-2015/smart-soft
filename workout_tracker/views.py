@@ -478,13 +478,6 @@ def update (request, u_id):
     return render_to_response('update.html', {'u':u, 'u2': u2}, context_instance=RequestContext(request)) 
     
          
-
-
-"""def update (request):
-    u=request.user.id
-    return render_to_response('update.html', {'u':u}, context_instance=RequestContext(request))"""
-
-
 def edit_info(request, u_id):
     user = request.user
     user_info = user.user_info
@@ -517,8 +510,18 @@ def edit_info(request, u_id):
         user.height = request.POST['height']
         user.save()
 
-      return render_to_response('client_profile.html',{'user':user, 'client':user_info}, context_instance=RequestContext(request))
+      return render_to_response('client_profile.html',{'user':user, 'client
+
+
+        ':user_info}, context_instance=RequestContext(request))
 
     else: 
       return render_to_response('update.html',{'u':user, 'u2':user_info}, context_instance=RequestContext(request))
  
+
+def stat(request):
+
+    x=Workout.objects.filter(client.id = request.user.id).count()
+    y=Workout.objects.filter(client.id = request.user.id and workout.done =true).count()
+    result = (x/y)*100
+    return HttpResponse('result')
