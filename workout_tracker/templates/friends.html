@@ -67,15 +67,11 @@
 				  <img src="{% static 'images/pic.png' %}" class="img-responsive" alt=""/> 
 			     </div>
 				 <div class="col-md-7 content_left_text">
-				 <a href="{% url 'friends'}">
-		
-		{% load friendshiptags %}
+				 {% for f in all_friends %}
+				 <a href="{% url 'view_client_info' f.user_info.id %}">
+				 <br/>{{f}}<a/>
+			{% endfor %}
 
-{% friends user %}
-{% followers user %}
-{% following user %}
-{% friend_requests user %}
-<a/>
 	</div>
 
 

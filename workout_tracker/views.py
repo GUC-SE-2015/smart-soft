@@ -431,6 +431,7 @@ def schedule(request):
     return render(request,'client_schedule.html', {'client_workout': client_workout})
 
 
+
 def add_workout(request):
      # Like before, get the request's context.
     context = RequestContext(request)
