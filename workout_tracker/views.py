@@ -92,10 +92,10 @@ def provide_trainer_info(request, user=None, register=False):
 
         # If the two forms are valid...
         if trainer_form.is_valid():
+            trainer1 = trainer_form.save(commit=False)
+            trainer1.type = 'trainer'
             # Save the user's form data to the database.
-            trainer_form.save()
-            # user = trainer_form.save()
-            # user_info = request.user.user_info
+            trainer1.save()
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             return view_trainer(request, user.user_info.id)
@@ -162,12 +162,13 @@ def provide_client_info(request, user=None, register=False):
         user = User.objects.get(pk=request.POST['user_id'])
         client = Client(user=user)
         client_form = ClientUserForm(request.POST, instance=client)
-        ##################################################profile_form = userForm(data=request.POST)
 
         # If the two forms are valid...
         if client_form.is_valid():
             # Save the user's form data to the database.
-            client_form.save()
+            client1 = client_form.save(commit=False)
+            client1.type = 'client'
+            client1.save()
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
             return view_client(request, user.user_info.id)
@@ -234,10 +235,10 @@ def user_login(request):
                 # We'll send the user back to the homepage.
                 login(request, user)
                 user_info = request.user.user_info
-                if user_info.type == 'trainer':
-                    return view_trainer(request, user_info.id)
-                else:
+                if user_info.type == 'client':
                     return view_client(request, user_info.id)
+                else:
+                    return view_trainer(request, user_info.id)
 
                 # return render_to_response('Homepage.html', {}, context)
             else:
@@ -257,6 +258,7 @@ def user_login(request):
         if request.user.is_anonymous():
             return render_to_response('login.html', {}, context)
         else:
+            print "USER:", request.user.first_name
             user_info = request.user.user_info
             if user_info.type == 'trainer':
                 return view_trainer(request, user_info.id)
@@ -333,9 +335,9 @@ def view_pending(request):
 
 
 def create_follow_request(request, tid):
-    trainer = User.objects.get(pk=tid)
-    new_relationship = Friend.objects.add_friend(request.user, trainer)
-    return view_trainer_info(request, tid)
+    user = User.objects.get(pk=tid)
+    new_relationship = Friend.objects.add_friend(request.user, user)
+    return view_trainer_info(request, user.user_info.id)
     # Can optionally save a message when creating friend requests
     message_relationship = Friend.objects.add_friend(
         from_user=request.user,
@@ -517,4 +519,9 @@ def add_exercise(request, workout_id ):
             'workout_id': workout_id,
             },
             context)    
+
+def view_exercise(request, workout_id ):
+    client_exercise = request.user.user_info.client.workout.get(id=workout_id)
+    exercise = client_exercise.exercise.all()
+    return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
 

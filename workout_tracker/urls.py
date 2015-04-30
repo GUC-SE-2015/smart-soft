@@ -29,5 +29,8 @@ urlpatterns = patterns('',
         # url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
         # url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
         url(r'^add_workout/$', views.add_workout, name='add_workout'),
-        url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise')
+        url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise'),
+        url(r'^view_exercise/(?P<workout_id>\d+)$', views.view_exercise, name='view_exercise')
+        
+
 )

@@ -38,10 +38,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="header-bottom_left">
 				
 			</div>
+
 			<div class="social">	
 			   <ul>	
 				
 		   </div>
+		   <div class="clear"></div>
+		</div>
+	  </div>
+	  <!-- start menu -->
+    <div class="menu">
+	  <div class="container">
+		 <div class="logo">
+			<a href="index.html"><img src="{% static 'images/logo.png' %}" alt=""/></a>
+		 </div>
+		 <div class="h_menu4"><!-- start h_menu4 -->
+		   <a class="toggleMenu" href="#">Menu</a>
+			 <ul class="nav">
+			   <li class="active"><a href="index.html">Home</a></li>
+			   <li><a href="about.html">About</a></li>
 			   <li><a href="#">My Schedule</a></li>
 			   <li><a href="#">Trainers</a>
 			   <li><a href="#">Profile</a></li>
@@ -83,7 +98,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				        </td>
 				        {% for workout in client_workout %}
 
-				        	<td class="event"><a href="#" title="Boxing">{{workout}}</a>{{workout.date_posted}} {{workout.due_date}}</td>
+				        <td class="event"><a href="{% url 'view_exercise' workout.id%}" title="Boxing">{{workout}}
+				        </a>{{workout.date_posted}} {{workout.due_date}}</td>
 				      	{% endfor %}
 				        
 				        <td></td>

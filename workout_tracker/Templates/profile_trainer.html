@@ -51,7 +51,7 @@
 			   <li class="active"><a href="#">Home</a></li>
 			   <li><a href="about.html">About</a></li>
 			   {% if not owner %}
-			   <li><a href="{% url 'follow' trainer.id %}" onclick="alert('Request Sent')">Follow Me</a></li>
+			   <li><a href="{% url 'follow' trainer.user.id %}" onclick="alert('Request Sent')">Follow Me</a></li>
 			   {% endif %}
 			 </ul>
 			  <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
