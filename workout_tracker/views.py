@@ -386,11 +386,15 @@ def data(request):
     return trainers(request)
 
 def schedule(request):
+    client_workout = Client.objects.get(id=client_id).workout.all()
+    return render(request,'client_schedule.html', {'client_workout': client_workout, 'client_id': client_id})
+
+def schedule_client(request):
     client_workout = request.user.user_info.client.workout.all()
-    return render(request,'schedule.html', {'client_workout': client_workout})
+    return render(request,'client_schedule.html', {'client_workout': client_workout})
 
 #Done By: Noha Gomaa Url:/add_workout
-def add_workout(request):
+def add_workout(request, client_id):
 
      # Like before, get the request's context.
     context = RequestContext(request)
@@ -406,9 +410,9 @@ def add_workout(request):
             # Save the user's form data to the database.
             workout = workout_form.save(commit=False)
             workout.posted_by = request.user
+            workout.client= Client.objects.get(id=client_id)
             workout.save()
             return add_exercise(request, workout_id= workout.id)
-            #return render_to_response('add_workout.html', {'workout_form': workout_form}, context)
 
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
@@ -425,9 +429,9 @@ def add_workout(request):
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)      
 
 #Done By: Noha Gomaa Url:/add_exercise
-def add_exercise(request, workout_id ):
+def add_exercise(request,workout_id ):
 
-        # Like before, get the request's context.
+    # Like before, get the request's context.
     context = RequestContext(request)
 
     # A boolean value for telling the template whether the registration was successful.
@@ -439,7 +443,7 @@ def add_exercise(request, workout_id ):
         # Attempt to grab information from the raw form information.
         exercise_form = ExerciseForm(data=request.POST)
 
-        # If the two forms are valid...
+        # If the form is valid...
         if exercise_form.is_valid():
             # Save the user's form data to the database.
             exercise = exercise_form.save(commit=False)
@@ -455,15 +459,13 @@ def add_exercise(request, workout_id ):
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
         # They'll also be shown to the user.
-        #else:
-            #print user_form.errors
-    else:
-        exercise_form = ExerciseForm()
+        else:
+            print exercise_form.errors
+
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
-    #else:
-        #user_form = CustomUserForm()
-        ##################################################profile_form = userForm()
+    else:
+        exercise_form = ExerciseForm()
 
     # Render the template depending on the context.
     return render_to_response(
@@ -473,7 +475,11 @@ def add_exercise(request, workout_id ):
             },
             context)    
 
+#Done By: Noha Gomaa Url:/
+#def mark_done(request):
 
 
 
 
+
+#
