@@ -438,38 +438,62 @@ def schedule_client(request):
 
 #Done By: Noha Gomaa Url:/add_workout
 def add_workout(request):
-
      # Like before, get the request's context.
     context = RequestContext(request)
-
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         workout_form = WorkoutForm(data=request.POST)
-
-        # If the two forms are valid...
+        # If the two form is valid...
         if workout_form.is_valid():
-
             # Save the user's form data to the database.
             workout = workout_form.save(commit=False)
             workout.posted_by = request.user
+            workout.client = request.user.user_info.client
             workout.save()
             return add_exercise(request, workout_id= workout.id)
-            #return render_to_response('add_workout.html', {'workout_form': workout_form}, context)
-
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
             print workout_form.errors
-
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
         workout_form = WorkoutForm()
 
     # Render the template depending on the context.
-    return render_to_response('add_workout.html',{'workout_form': workout_form},context)      
+    return render_to_response('add_workout.html',{'workout_form': workout_form},context)
+
+#Done By: Noha Gomaa Url:/add_workout
+def add_workout_trainer(request, client_id):
+    # Like before, get the request's context.
+    context = RequestContext(request)
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        workout_form = WorkoutForm(data=request.POST)
+        # If the form is valid...
+        if workout_form.is_valid():
+            # Save the user's form data to the database.
+            workout = workout_form.save(commit=False)
+            workout.posted_by = request.user
+            workout.client = Client.objects.get(id = client_id) 
+            workout.save()
+            return add_exercise(request, workout_id= workout.id)
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        else:
+            print workout_form.errors
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    else:
+        workout_form = WorkoutForm()
+
+    # Render the template depending on the context.
+    return render_to_response('add_workout_trainer.html',{'workout_form': workout_form},context)          
 
 #Done By: Noha Gomaa Url:/add_exercise
 def add_exercise(request, workout_id ):
@@ -520,9 +544,17 @@ def add_exercise(request, workout_id ):
             },
             context)    
 
+#Done By: Noha Gomaa Url:/exercise
+"""def mark_done(request, workout_id):
+     if ()
+    workout = request.user.user_info.client.workout.get(id=workout_id)
+    workout.done = True"""    
+
 def view_exercise(request, workout_id ):
     client_exercise = request.user.user_info.client.workout.get(id=workout_id)
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
+
+ 
 
 
