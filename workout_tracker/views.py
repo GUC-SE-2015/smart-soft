@@ -451,6 +451,7 @@ def add_workout(request):
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context) 
 
+# Done by Marina #39
 def add_goal(request):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -484,6 +485,7 @@ def add_goal(request):
     # Render the template depending on the context.
     return render_to_response('add_goal.html', {'goal_form': goal_form}, context)               
               
+#Done by Marina #40           
 def add_goal(request, client_id):
     # Like before, get the request's context.
     context = RequestContext(request)
