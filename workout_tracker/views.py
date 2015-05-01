@@ -47,32 +47,6 @@ def clients(request):
     return render(request,'clients.html', {"clients":Client.objects.all()})    
 
 
-"""def trainers_clients(request):
-
-    user = {
-    "name":"keshk",
-    "email":"keshk@gmail.com",
-    "phone":"0123456789",
-    "height": "170 CM",
-    "weight":"67 KG",
-
-    }
-    return render(request,'trainer_client.html',{"user":user}) """  
-
-
-"""def clients_trainers(request):
-
-    user = {
-    "name":"keshk",
-    "email":"keshk@gmail.com",
-    "phone":"0123456789",
-    "height": "170 CM",
-    "weight":"67 KG",
-
-    }
-    return render(request,'client_trainer.html',{"user":user})  |""" 
-
-   
 def provide_trainer_info(request, user=None, register=False):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -436,42 +410,66 @@ def schedule_client(request):
     return render(request,'client_schedule.html', {'client_workout': client_workout})
 
 
-#Done By: Noha Gomaa Url:/add_workout
+#Done By: Noha Gomaa Issue: #43 Url:/add_workout
 def add_workout(request):
-
      # Like before, get the request's context.
     context = RequestContext(request)
-
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         workout_form = WorkoutForm(data=request.POST)
-
-        # If the two forms are valid...
+        # If the two form is valid...
         if workout_form.is_valid():
-
             # Save the user's form data to the database.
             workout = workout_form.save(commit=False)
             workout.posted_by = request.user
+            workout.client = request.user.user_info.client
             workout.save()
             return add_exercise(request, workout_id= workout.id)
-            #return render_to_response('add_workout.html', {'workout_form': workout_form}, context)
-
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
             print workout_form.errors
-
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
         workout_form = WorkoutForm()
 
     # Render the template depending on the context.
-    return render_to_response('add_workout.html',{'workout_form': workout_form},context)      
+    return render_to_response('add_workout.html',{'workout_form': workout_form},context)
 
-#Done By: Noha Gomaa Url:/add_exercise
+#Done By: Noha Gomaa Issue: #43 Url:/add_workout_trainer
+def add_workout_trainer(request, client_id):
+    # Like before, get the request's context.
+    context = RequestContext(request)
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        workout_form = WorkoutForm(data=request.POST)
+        # If the form is valid...
+        if workout_form.is_valid():
+            # Save the user's form data to the database.
+            workout = workout_form.save(commit=False)
+            workout.posted_by = request.user
+            workout.client = Client.objects.get(id = client_id) 
+            workout.save()
+            return add_exercise(request, workout_id= workout.id)
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        else:
+            print workout_form.errors
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    else:
+        workout_form = WorkoutForm()
+
+    # Render the template depending on the context.
+    return render_to_response('add_workout.html',{'workout_form': workout_form , 'client_id': client_id},context)          
+
+#Done By: Noha Gomaa Issue: #43 Url:/add_exercise
 def add_exercise(request, workout_id ):
 
         # Like before, get the request's context.
@@ -520,6 +518,13 @@ def add_exercise(request, workout_id ):
             },
             context)    
 
+#Done By: Noha Gomaa Issue: #44 Url:/workout_done
+def mark_done(request, workout_id):
+    
+    workout = request.user.user_info.client.workout.get(id=workout_id)
+    workout.done = True  
+    workout.save()
+    return schedule_client(request)
 
 """def view_exercise_trainer(request, workout_id ):
     client_exercise = request.user.user_info.client.workout.get(id=workout_id)
