@@ -436,7 +436,7 @@ def schedule_client(request):
     return render(request,'client_schedule.html', {'client_workout': client_workout})
 
 
-#Done By: Noha Gomaa Url:/add_workout
+#Done By: Noha Gomaa Issue: #43 Url:/add_workout
 def add_workout(request):
      # Like before, get the request's context.
     context = RequestContext(request)
@@ -465,7 +465,7 @@ def add_workout(request):
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)
 
-#Done By: Noha Gomaa Url:/add_workout
+#Done By: Noha Gomaa Issue: #43 Url:/add_workout_trainer
 def add_workout_trainer(request, client_id):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -493,9 +493,9 @@ def add_workout_trainer(request, client_id):
         workout_form = WorkoutForm()
 
     # Render the template depending on the context.
-    return render_to_response('add_workout_trainer.html',{'workout_form': workout_form},context)          
+    return render_to_response('add_workout.html',{'workout_form': workout_form , 'client_id': client_id},context)          
 
-#Done By: Noha Gomaa Url:/add_exercise
+#Done By: Noha Gomaa Issue: #43 Url:/add_exercise
 def add_exercise(request, workout_id ):
 
         # Like before, get the request's context.
@@ -544,17 +544,19 @@ def add_exercise(request, workout_id ):
             },
             context)    
 
-#Done By: Noha Gomaa Url:/exercise
-"""def mark_done(request, workout_id):
-     if ()
+#Done By: Noha Gomaa Issue: #44 Url:/workout_done
+def mark_done(request, workout_id):
+    
     workout = request.user.user_info.client.workout.get(id=workout_id)
-    workout.done = True"""    
+    workout.done = True  
+    workout.save()
+    return schedule_client(request)
 
 def view_exercise(request, workout_id ):
     client_exercise = request.user.user_info.client.workout.get(id=workout_id)
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
 
- 
+
 
 

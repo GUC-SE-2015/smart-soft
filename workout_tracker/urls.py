@@ -28,10 +28,11 @@ urlpatterns = patterns('',
         url(r'^friends/$', views.view_clients, name='friends'),
         # url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
         # url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
-        url(r'^add_workout_trainer/(?P<client_id>\d+)$', views.add_workout_trainer, name='add_workout_trainer'),
+        url(r'^add_workout_trainer/(?P<client_id>\d+)$', views.add_workout_trainer, name='add_workout'),
         url(r'^add_workout/$', views.add_workout, name='add_workout'),
         url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise'),
-        url(r'^view_exercise/(?P<workout_id>\d+)$', views.view_exercise, name='view_exercise')
+        url(r'^view_exercise/(?P<workout_id>\d+)$', views.view_exercise, name='view_exercise'),
+        url(r'^workout_done/(?P<workout_id>\d+)$', views.mark_done, name='workout_done')
         
 
 

@@ -59,7 +59,7 @@
 	 <div class="main">
 	 	 <div class="container">
 		<!--background-color: #ff0000 setting background colour in style-->
-		<a  class="btn" href="{% url 'add_workout' %}" >
+		<a  class="btn" href="{% url 'add_workout' client.id %}" >
 	 	 <input class="btn" type="button" style="font-family: sans-serif; font-size: 20px; color: Black;" value="Add Workout"></a>
 
        <a  class="btn" href="{% url 'client_workouts' client.id %}" >
