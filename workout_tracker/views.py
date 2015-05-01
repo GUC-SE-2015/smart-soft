@@ -8,7 +8,8 @@ from models import Trainer, Client, User, UserInfo, Workout, Exercise
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-
+from pinax.notifications.models import send
+send([users], "label", {"extra": context})
 
 
 def view_trainer(request, trainer_id):

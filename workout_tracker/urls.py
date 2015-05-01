@@ -30,7 +30,8 @@ urlpatterns = patterns('',
         # url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
         url(r'^add_workout/$', views.add_workout, name='add_workout'),
         url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise'),
-        url(r'^view_exercise/(?P<workout_id>\d+)$', views.view_exercise, name='view_exercise')
+        url(r'^view_exercise/(?P<workout_id>\d+)$', views.view_exercise, name='view_exercise'),
+        url(r"^notifications/", include("pinax.notifications.urls"))
         
 
 )
