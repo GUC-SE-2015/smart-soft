@@ -520,7 +520,8 @@ def add_exercise(request, workout_id ):
             {'exercise_form': exercise_form,
             'workout_id': workout_id,
             },
-            context)    
+            context)
+    action.send(add_workout.trainer, verb='trainer added workout')    
 
 def view_exercise(request, workout_id ):
     client_exercise = request.user.user_info.client.workout.get(id=workout_id)
@@ -533,5 +534,4 @@ def my_handler(sender, **kwargs):
 
 pre_save.connect(my_handler, sender=MyModel)
 
-action.send(add_workout.trainer, verb='trainer added workout')
 action.send(add_exercise.trainer, verb='added excercise', target=group)
