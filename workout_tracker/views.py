@@ -520,8 +520,16 @@ def add_exercise(request, workout_id ):
             },
             context)    
 
-def view_exercise(request, workout_id ):
+
+"""def view_exercise_trainer(request, workout_id ):
     client_exercise = request.user.user_info.client.workout.get(id=workout_id)
     exercise = client_exercise.exercise.all()
-    return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
+    return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )"""
 
+#Done By: Seif Keshk Issue:#37 Url:/view_exercise
+def view_exercise(request, workout_id):
+    #Grab selected workout from schedule
+    workout =  Workout.objects.get(id = workout_id)
+    #Get all exercises belonging to this workout
+    exercise = workout.exercise.all()
+    return render(request,'exercise.html', {'exercise':exercise, 'workout': workout} )
