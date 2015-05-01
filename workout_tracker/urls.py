@@ -31,7 +31,7 @@ urlpatterns = patterns('',
         url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise'),
         url(r'^view_exercise/(?P<workout_id>\d+)$', views.view_exercise, name='view_exercise'),
         url(r'^workout_done/(?P<workout_id>\d+)$', views.mark_done, name='workout_done')
-        
-
+        url(r'^add_goal/$', views.add_goal, name='add_goal'),
+        url(r'^add_goal_trainer/(?P<client_id>\d+)$',views.add_goal_trainer, name='add_goal')
 
 )

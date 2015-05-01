@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from workout_tracker.models import Trainer, Client, UserInfo, Workout, Comment, Exercise
+from workout_tracker.models import Trainer, Client, UserInfo, Workout, Comment, Exercise, goal
 
 class TrainerUserForm(forms.ModelForm):
 	class Meta:
@@ -38,6 +38,11 @@ class ExerciseForm(forms.ModelForm):
         model = Exercise
         exclude = ['workout']
 
+
+class GoalForm(forms.ModelForm):
+    class Meta:
+        model = goal
+        fields = ("description", "due_date")
 
 
 

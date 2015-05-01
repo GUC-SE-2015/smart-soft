@@ -3,7 +3,7 @@ from django.template import RequestContext
 from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm, ExerciseForm
+from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm, ExerciseForm, GoalForm
 from models import Trainer, Client, User, UserInfo, Workout, Exercise
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout
@@ -350,9 +350,8 @@ def data(request):
     client.save()
     return trainers(request)
 
-
 def schedule_trainer(request,client_id):
-    client_workout = Client.objects.get(id=client_id).workout.all()
+    client_workout = Client.objects.get(id=client.id).workout.all()
     return render(request,'client_schedule.html', {'client_workout': client_workout, 'client_id': client_id})
 
 def schedule_client(request):
@@ -362,7 +361,7 @@ def schedule_client(request):
 
 #Done By: Noha Gomaa Issue: #43 Url:/add_workout
 def add_workout(request):
-     # Like before, get the request's context.
+    # Like before, get the request's context.
     context = RequestContext(request)
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
@@ -390,6 +389,7 @@ def add_workout(request):
 
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)
+
 
 #Done By: Noha Gomaa Issue: #43 Url:/add_workout_trainer
 def add_workout_trainer(request, client_id):
@@ -449,14 +449,6 @@ def add_exercise(request, workout_id ):
             
             # Update our variable to tell the template registration was successful.
             registered = True
-
-        # Invalid form or forms - mistakes or something else?
-        # Print problems to the terminal.
-        # They'll also be shown to the user.
-        else:
-            print user_form.errors
-    # Not a HTTP POST, so we render our form using ModelForm instance.
-    # These forms will be blank, ready for user input.
     else:
         exercise_form = ExerciseForm()
 
@@ -467,6 +459,8 @@ def add_exercise(request, workout_id ):
             'workout_id': workout_id,
             },
             context)    
+
+
 
 #Done By: Noha Gomaa Issue: #44 Url:/workout_done
 def mark_done(request, workout_id):
@@ -483,6 +477,68 @@ def view_exercise(request, workout_id ):
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
 
- 
+def add_goal(request):
+    # Like before, get the request's context.
+    context = RequestContext(request)
 
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        goal_form = GoalForm(data=request.POST)
+
+        # If the two forms are valid...
+        if goal_form.is_valid():
+
+            # Save the user's form data to the database.
+            goal = goal_form.save()
+            goal.posted_by = request.user
+            goal.user = request.user
+            goal.save()
+            return render_to_response('add_goal.html', {'goal_form': goal_form}, context)
+
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        else:
+            print goal_form.errors
+    # Not a HTTP POST, so we render our form using ModelForm instance.
+    # These forms will be blank, ready for user input.
+    else:
+        goal_form = GoalForm()
+
+    # Render the template depending on the context.
+    return render_to_response('add_goal.html', {'goal_form': goal_form}, context)  
+                 
+def add_goal_trainer(request, client_id):
+    # Like before, get the request's context.
+    context = RequestContext(request)
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        goal_form = GoalForm(data=request.POST)
+
+        # If the two forms are valid...
+        if goal_form.is_valid():
+
+            # Save the user's form data to the database.
+            goal = goal_form.save()
+            goal.posted_by = request.user
+            goal.user = Client.objects.get( id= client_id)
+            goal.save()
+            return render_to_response('add_goal.html', {'goal_form': goal_form, 'client_id' : client_id}, context)
+
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        else:
+            print goal_form.errors
+
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    else:
+        goal_form = GoalForm()
+
+    # Render the template depending on the context.
+    return render_to_response('add_goal.html', {'goal_form': goal_form, 'client_id' : client_id}, context) 
 
