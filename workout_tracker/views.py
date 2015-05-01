@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
+
 def view_trainer(request, trainer_id):
     trainer = Trainer.objects.get(id=trainer_id)
     return render(request,'trainer_home.html', {
@@ -557,3 +558,4 @@ def view_exercise(request, workout_id ):
     client_exercise = request.user.user_info.client.workout.get(id=workout_id)
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
+
