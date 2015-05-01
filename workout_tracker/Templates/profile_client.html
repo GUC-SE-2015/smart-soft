@@ -43,12 +43,14 @@
 			<a href="{% url 'view_client' client.id %}"><img src="{% static 'images/logo.png' %}" alt=""/></a>
 		 </div>
 		 <div class="h_menu4"><!-- start h_menu4 -->
-		   <a class="toggleMenu" href="#">Menu</a>
+		   <a class="toggleMenu" href="/">Menu</a>
 			 <ul class="nav">
-			   <li class="active"><a href="{% url 'view_client' client.id %}">Home</a></li>
-			   <li><a href="about.html">About</a></li>
+			   <li class="active"><a href="/">Home</a></li>
 			   <li><a href="{% url 'client_workouts' client.id %}">My Schedule</a></li>
-			   <li><a href="{% url 'view_client_info' client.id %}">Profile</a></li>
+			   	{% if owner %}
+			   <li><a href="{% url 'edit_info' client.id %}">Edit Info</a></li>
+			   <li><a href="/stat">Statistics</a></li>
+			   {% endif %}
 			 </ul>
 			  <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 		  </div><!-- end h_menu4 -->
