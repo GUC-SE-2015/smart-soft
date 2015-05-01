@@ -603,3 +603,4 @@ def edit_info(request, u_id):
 
     else: 
       return render_to_response('update.html',{'u':user, 'u2':user_info}, context_instance=RequestContext(request))
+
