@@ -24,6 +24,19 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='Exercise',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('description', models.TextField()),
+                ('count', models.PositiveIntegerField()),
+                ('lap', models.PositiveIntegerField()),
+                ('weight', models.PositiveIntegerField(null=True, blank=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='UserInfo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -65,11 +78,12 @@ class Migration(migrations.Migration):
             name='Workout',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('workout', models.TextField()),
-                ('date_posted', models.DateField()),
+                ('title', models.CharField(max_length=256, choices=[(b'Arm', b'Arm'), (b'Legs', b'Legs'), (b'Deltoids', b'Deltoids'), (b'Chest', b'Chest'), (b'Back', b'Back'), (b'Fitness', b'Fitness')])),
+                ('date_posted', models.DateField(auto_now_add=True)),
                 ('due_date', models.DateField()),
-                ('client', models.ForeignKey(related_name='workout', blank=True, to='workout_tracker.Client', null=True)),
-                ('posted_by', models.ForeignKey(related_name='user', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('done', models.NullBooleanField()),
+                ('client', models.ForeignKey(related_name='workout', to='workout_tracker.Client')),
+                ('posted_by', models.ForeignKey(related_name='user', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -79,6 +93,12 @@ class Migration(migrations.Migration):
             model_name='userinfo',
             name='user',
             field=models.OneToOneField(related_name='user_info', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='exercise',
+            name='workout',
+            field=models.ForeignKey(related_name='exercise', to='workout_tracker.Workout'),
             preserve_default=True,
         ),
     ]
