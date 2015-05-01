@@ -522,8 +522,11 @@ def add_exercise(request, workout_id ):
             'workout_id': workout_id,
             },
             context)
+<<<<<<< HEAD
     
     #notification sent
+=======
+>>>>>>> 19aadcc6cd0d639eea1575a96fc98e4202d7943e
     notify.send(add_exercise.trainer, recipient=trainer, verb=u'exercise added', action_object=add_exercise,
             description=add_exercise.trainer, target=add_exercise.content_object)
 
@@ -532,10 +535,16 @@ def view_exercise(request, workout_id ):
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
 
+<<<<<<< HEAD
 #creating notification method
 def my_handler(sender, instance, created, **kwargs):
     notify.send(instance, verb='was saved')
 
 post_save.connect(my_handler, sender=MyModel)
 
-def 
+=======
+def my_handler(sender, instance, created, **kwargs):
+    notify.send(instance, verb='was saved')
+
+post_save.connect(my_handler, sender=MyModel)
+>>>>>>> 19aadcc6cd0d639eea1575a96fc98e4202d7943e
