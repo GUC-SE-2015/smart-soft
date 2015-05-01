@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Goal</title>
+    </head>
+
+    <body>
+        <h1>Add Goal</h1>
+
+        <form id="goal_form" method="post" action="/add_goal/{{client_id}}"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            <!--{{ workout_form.as_p }} -->
+
+            {% for field in goal_form %}
+                <br>
+                <label style='color:red;'>{{ field.label }}</label>
+                <br>
+                {{ field }}
+            {% endfor %}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Add Goal" />
+        </form>
+    </body>
+</html>

@@ -1,5 +1,3 @@
-
-
 """
 Django settings for syntax_solutions project.
 
