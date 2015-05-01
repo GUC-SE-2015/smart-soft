@@ -488,11 +488,10 @@ def add_goal(request):
 
         # If the two forms are valid...
         if goal_form.is_valid():
-
             # Save the user's form data to the database.
-            goal = goal_form.save()
+            goal = goal_form.save(commit=False)
             goal.posted_by = request.user
-            goal.user = request.user
+            goal.user = request.user.user_info.client
             goal.save()
             return render_to_response('add_goal.html', {'goal_form': goal_form}, context)
 
@@ -508,7 +507,7 @@ def add_goal(request):
 
     # Render the template depending on the context.
     return render_to_response('add_goal.html', {'goal_form': goal_form}, context)  
-                 
+
 def add_goal_trainer(request, client_id):
     # Like before, get the request's context.
     context = RequestContext(request)
