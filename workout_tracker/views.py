@@ -477,7 +477,7 @@ def view_exercise(request, workout_id ):
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
 
-# Done by Marina #39
+# Done by Marina Issue #39 Url:/add_goal
 def add_goal(request):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -507,8 +507,9 @@ def add_goal(request):
         goal_form = GoalForm()
 
     # Render the template depending on the context.
-    return render_to_response('add_goal.html', {'goal_form': goal_form}, context)               
+    return render_to_response('add_goal.html', {'goal_form': goal_form}, context)
 
+# Done by Marina Issue #40 Url:/add_goal
 def add_goal_trainer(request, client_id):
     # Like before, get the request's context.
     context = RequestContext(request)
