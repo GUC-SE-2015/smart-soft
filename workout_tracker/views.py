@@ -3,12 +3,11 @@ from django.template import RequestContext
 from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm
-from models import Trainer, Client, User, UserInfo
+from workout_tracker.forms import TrainerUserForm, ClientUserForm, UserCreateForm, WorkoutForm, CommentForm, ExerciseForm
+from models import Trainer, Client, User, UserInfo, Comment, Workout, Exercise 
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-
 
 
 def view_trainer(request, trainer_id):
@@ -331,6 +330,28 @@ def create_follow_request(request):
     )
 
 
+def addComment(request):
+
+  context = RequestContext(request)
+  if request.method == 'POST':
+    comment_form = CommentForm(data=request.POST)
+    if comment_form.is_valid():
+            # Save the user's form data to the database
+        Comment = comment_form.save()
+        return render_to_response ('addComments.html',{'comment_form': comment_form}, context)
+    else:
+      print comment_form.errors
+  else:
+      comment_form = CommentForm
+      return render_to_response('addComments.html',{'comment_form':comment_form}, context)
+
+
+def viewComment(request):
+  comment = Comment.objects.all()
+  return render(request,'viewComments.html',{"comments":comment})    
+
+
+
 def accept(request, pid):
     FriendshipRequest.objects.get(id=pid).accept()
     return HttpResponse('friend accepted')
@@ -410,9 +431,11 @@ def data(request):
     client.save()
     return trainers(request)
 
+
 def schedule(request):
     client_workout = request.user.user_info.client.workout.all()
     return render(request,'schedule.html', {'client_workout': client_workout})
+
 
 def add_workout(request):
      # Like before, get the request's context.
@@ -445,3 +468,116 @@ def add_workout(request):
 
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)               
+
+#Done by Mirna Benyamine #42(edit profile) url:/update
+def update (request, u_id):
+# to get the information of the loged user.    
+    u=User.objects.filter(id=u_id)
+    u2=UserInfo.objects.filter(user=u)
+ #to return the html where the user will edit his information.   
+    return render_to_response('update.html', {'u':u, 'u2': u2}, context_instance=RequestContext(request)) 
+    
+#Done by Mirna Benyamine #42(edit profile) url:/edit_info        
+def edit_info(request, u_id):
+    user = request.user
+    user_info = user.user_info
+#this will appear to both clients and trainers
+    if request.POST:
+      user.first_name = request.POST['firstname']
+      user.last_name = request.POST['lastname']
+      user.save()
+      user.set_password(request.POST['newpassword'])
+
+#if the loged user is a trainer, this extra information will appear to be edited
+      if user_info.type == 'trainer':
+        user_info = user.user_info
+        user_info.phone = request.POST['phone']
+        user_info.experience = request.POST['experience']
+        user_info.education = request.POST['education']
+        user_info.save()
+#it will then return the updated trainer profile.
+        return render_to_response('trainer_profile.html',{'user':user, 'trainer':user_info}, context_instance=RequestContext(request))
+
+
+      else:  
+#else if the loged user is a client, this extra information will appear to be edited 
+        user.health_issues = request.POST['health_issues']
+        user.save()
+
+        user.weight = request.POST['weight'] 
+        user.save()
+
+        user.height = request.POST['height']
+        user.save()
+#then it will retuen the updated client profile.
+      return render_to_response('client_profile.html',{'user':user, 'client':user_info}, context_instance=RequestContext(request))
+
+    else: 
+      return render_to_response('update.html',{'u':user, 'u2':user_info}, context_instance=RequestContext(request))
+
+
+      #Done By: Noha Gomaa Url:/add_exercise
+def add_exercise(request, workout_id ):
+
+        # Like before, get the request's context.
+    context = RequestContext(request)
+
+    # A boolean value for telling the template whether the registration was successful.
+    # Set to False initially. Code changes value to True when registration succeeds.
+    registered = False
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method =='POST' :
+        # Attempt to grab information from the raw form information.
+        exercise_form = ExerciseForm(data=request.POST)
+
+        # If the two forms are valid...
+        if exercise_form.is_valid():
+            # Save the user's form data to the database.
+            exercise = exercise_form.save(commit=False)
+            exercise.workout = Workout.objects.get(pk=workout_id)
+            exercise.save()
+            return HttpResponseRedirect('/add_exercise/%s' % workout_id ) 
+            
+
+
+            # Update our variable to tell the template registration was successful.
+            registered = True
+
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        #else:
+            #print user_form.errors
+    else:
+        exercise_form = ExerciseForm()
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    #else:
+        #user_form = CustomUserForm()
+        ##################################################profile_form = userForm()
+
+    # Render the template depending on the context.
+    return render_to_response(
+            'add_exercise.html',
+            {'exercise_form': exercise_form,
+            'workout_id': workout_id,
+            },
+            context)    
+
+#Done by Mirna Benyamine #41(show statistics) url:/stat
+def stat(request):
+    user = request.user
+    #to get all the workout of the loged client.
+    x=len(Workout.objects.filter(client=user.user_info))
+    #to get the done workouts of the loged client.
+    y=len(Workout.objects.filter(done=True, client=user.user_info))
+    print "y: ", y
+    if x != 0:
+        print "here"
+    #to calculate the % of the workouts done.    
+        result = 100*y/x
+        print 'resutl', result
+    else:
+        result = 0
+    return HttpResponse(result)

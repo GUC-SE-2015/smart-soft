@@ -1,0 +1,7 @@
+{% for f in unrejects %}
+	<div>
+		{{ f.from_user.username }} wants to be your friend
+		<a href="{% url 'accept' f.id %}">Accept</a>
+		<a href="{% url 'reject' f.id %}">Reject</a>
+	</div>
+{% endfor %}

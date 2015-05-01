@@ -1,7 +1,16 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from workout_tracker.models import Trainer, Client, UserInfo, Workout, Comment
+from workout_tracker.models import Trainer, Client, UserInfo, Workout, Comment, Exercise
+
+
+
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ("content",)
+
 
 class TrainerUserForm(forms.ModelForm):
 	class Meta:
@@ -19,7 +28,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
@@ -31,7 +40,13 @@ class UserCreateForm(UserCreationForm):
 class WorkoutForm(forms.ModelForm):
     class Meta:
         model = Workout
-        fields = ("workout", "due_date", "client")
+        fields = ("title", "due_date", "client")
+
+class ExerciseForm(forms.ModelForm):
+    class Meta:
+        model = Exercise
+        exclude = ['workout']
+
 
 
 
@@ -40,4 +55,5 @@ class WorkoutForm(forms.ModelForm):
 
 
     
+
 

@@ -1,9 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from workout_tracker import views
+from workout_tracker.views import  search, addComment, viewComment, update, edit_info
 
 urlpatterns = patterns('',
-    
+      
         url(r'^$', views.index, name='index'),
     	url(r'^register/$', views.register, name='register'),
         url(r'^login/$', views.user_login, name='login'),
@@ -21,7 +22,25 @@ urlpatterns = patterns('',
         url(r'^trainers/$', views.trainers, name='trainers'),
         url(r'^clients/$', views.clients, name='clients'),
         url(r'^data/$', views.data, name='data'),
-        # url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
-        # url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
-        url(r'^add_workout/$', views.add_workout, name='add_workout')
+
+        url(r'^add_workout/$', views.add_workout, name='add_workout'),
+       # url(r'^home/$', home, name='home'),
+        url(r'^home/search/$', search, name='search'),
+        url(r'^addComment/$', addComment, name='addComment'),
+        url(r'^viewComment/$', viewComment, name='viewComment'),
+        #url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
+        #url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
+        url(r'^edit_info/(?P<u_id>\d+)$', edit_info, name='edit_info'),
+        url(r'^update/(?P<u_id>\d+)$', update, name='update'),
+        #url(r'^profile/update/profile/(?P<u_id>\d+)$', profile, name='profile'),
+        url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise'),
+        url(r'^stat/$', views.stat, name='stat'),
+
+
+
+ 
+ 
+
 )
+
+
