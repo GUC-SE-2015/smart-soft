@@ -11,14 +11,16 @@ from django.contrib.auth.decorators import login_required
 
 
 
+#Done by : Eric Philippe issue #38
 def view_trainer(request, trainer_id):
     trainer = Trainer.objects.get(id=trainer_id)
     return render(request,'trainer_home.html', {
         "trainer":trainer,
         "owner": False if request.user.is_anonymous() else request.user.user_info.id == trainer.id})
 
-
+#Done by : Eric Philippe issue #38
 def view_trainer_info(request, trainer_id):
+	#view trainer profile 
     trainer = Trainer.objects.get(id=trainer_id)
     return render(request,'profile_trainer.html', {
         "trainer":trainer,
@@ -31,8 +33,8 @@ def view_client(request, client_id):
         "client":client,
         "owner": False if request.user.is_anonymous() else request.user.user_info.id == client.id})
     
-
 def view_client_info(request, client_id):
+	#view client profile
     client = Client.objects.get(id=client_id)
     return render(request,'profile_client.html', {
         "client":client,
