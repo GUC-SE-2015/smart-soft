@@ -559,3 +559,102 @@ def view_exercise(request, workout_id ):
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
 
+def next_workout(request, client_id):
+    client = client.objects.get(id=client_id)
+    currentdate = date.now()
+    allworkouts = Workout.objects.all()
+
+client1 = Client.objects.get(pk=client_id)
+workouts1   = client1.workout1_set.select_related()
+
+counts = {}
+
+for wourkout1 in workouts1:
+  if not counts.has_key(wourkout1.workout.id):
+    counts[workout1.workout.id] = {
+      'workout': workout1.workout,
+      'count': 0
+    }
+
+  counts[workout1.workout.id]['count'] += 1
+# This method gets the count of the workout to help in the initialization of an array list.
+
+
+workout_list = []
+    all_workouts = Workout.objects.annotate(Count('id'))
+    newest_workout_index = len(all_workouts)
+    index = 0
+    while index <= counts:
+        try:
+            x = Workout.objects.get(id=newest_workout_index)
+            entries_list.append(x)
+            newest_workout_index = newest_workout_index - 1
+            index = index + 1
+        except:
+            index = index + 1
+            pass
+
+c = RequestContext(request, {'form' : form, 'workout_list' : workout_list})
+    return render_to_response("next_workout.html", c)
+
+    for w in allworkouts:
+        if w.client == client:
+            if w.due_date >= currentdate:
+                if done == False: 
+
+
+return render(request,'next_workout.html', {'client':client, 'w':w})
+
+# w is the result workout from the for loop accessing the latest workout according to the date in the array list.
+
+
+def latest_workout(request, client_id):
+ 
+    client = client.objects.get(id=client_id)
+    currentdate = date.now()
+    allworkouts = Workout.objects.all()
+
+client1 = Client.objects.get(pk=client_id)
+workouts1   = client1.workout1_set.select_related()
+
+counts = {}
+
+for wourkout1 in workouts1:
+  if not counts.has_key(wourkout1.workout.id):
+    counts[workout1.workout.id] = {
+      'workout': workout1.workout,
+      'count': 0
+    }
+
+  counts[workout1.workout.id]['count'] += 1
+# This method gets the count of the workout to help in the initialization of an array list.
+
+
+workout_list = []
+    all_workouts = Workout.objects.annotate(Count('id'))
+    newest_workout_index = len(all_workouts)
+    index = 0
+    while index <= counts:
+        try:
+            x = Workout.objects.get(id=newest_workout_index)
+            entries_list.append(x)
+            newest_workout_index = newest_workout_index - 1
+            index = index + 1
+        except:
+            index = index + 1
+            pass
+
+c = RequestContext(request, {'form' : form, 'workout_list' : workout_list})
+    return render_to_response("latest_workout.html", c)
+
+    for w in allworkouts:
+        if w.client == client:
+            if w.due_date >= currentdate:
+                if done == False: 
+
+
+return render(request,'latest_workout.html', {'client':client, 'w':w})
+
+# w is the result workout from the for loop accessing the latest workout according to the date in the array list.
+
+
