@@ -8,9 +8,10 @@ from models import Trainer, Client, User, UserInfo, Workout, Exercise
 from friendship.models import FriendshipRequest
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.db.models.signals import pre_save
-from actstream import action
+from django.db.models.signals import post_save
+from notifications import notify
 from myapp.models import MyModel
+
 
 
 def view_trainer(request, trainer_id):
@@ -521,17 +522,15 @@ def add_exercise(request, workout_id ):
             'workout_id': workout_id,
             },
             context)
-    action.send(add_workout.trainer, verb='trainer added workout')    
+    notify.send(add_exercise.trainer, recipient=trainer, verb=u'exercise added', action_object=add_exercise,
+            description=add_exercise.trainer, target=add_exercise.content_object)
 
 def view_exercise(request, workout_id ):
     client_exercise = request.user.user_info.client.workout.get(id=workout_id)
     exercise = client_exercise.exercise.all()
     return render(request,'exercise.html', {'exercise':exercise, 'workout_id': workout_id} )
 
-#adding actions taken when adding workout or excercise 
-def my_handler(sender, **kwargs):
-    action.save(sender, verb='was saved')
+def my_handler(sender, instance, created, **kwargs):
+    notify.send(instance, verb='was saved')
 
-pre_save.connect(my_handler, sender=MyModel)
-
-action.send(add_exercise.trainer, verb='added excercise', target=group)
+post_save.connect(my_handler, sender=MyModel)
