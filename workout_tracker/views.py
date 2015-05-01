@@ -454,7 +454,7 @@ def add_exercise(request, workout_id ):
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
-            print user_form.errors
+            print exercise_form.errors
     # Not a HTTP POST, so we render our form using ModelForm instance.
     # These forms will be blank, ready for user input.
     else:
