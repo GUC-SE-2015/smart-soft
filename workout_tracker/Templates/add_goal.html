@@ -9,7 +9,7 @@
     <body>
         <h1>Add Goal</h1>
 
-        <form id="goal_form" method="post" action="/add_goal/"
+        <form id="goal_form" method="post" action="/add_goal/{{client_id}}"
                 enctype="multipart/form-data">
 
             {% csrf_token %}

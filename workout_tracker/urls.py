@@ -22,8 +22,7 @@ urlpatterns = patterns('',
         url(r'^trainers/$', views.trainers, name='trainers'),
         url(r'^clients/$', views.clients, name='clients'),
         url(r'^data/$', views.data, name='data'),
-        # url(r'^trainers_clients/$', views.trainers_clients, name='trainers'),
-        # url(r'^clients_trainers/$', views.clients_trainers, name='clients'),
         url(r'^add_workout/$', views.add_workout, name='add_workout'),
-        url(r'^add_goal/$', views.add_goal, name='add_goal')
+        url(r'^add_goal/$', views.add_goal, name='add_goal'),
+        url(r'^add_goal_trainer/(?P<client_id>\d+)$',views.add_goal_trainer, name='add_goal')
 )
