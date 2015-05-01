@@ -67,12 +67,11 @@
 				 <font size="4.5" color="blue">Counts</font>: <font size="4" color="black">{{exercise.count}} /</font>
 				 <font size="4.5" color="blue">Laps</font> : <font size="4" color="black">{{exercise.lap}} / </font>
 				 <font size="4.5" color="blue">Weight</font> : <font size="4" color="black">{{exercise.weight}} </font> <br/>
-
-  				<a  class="btn" href="{% url 'workout_done' workout_id %}" >
+				 {% if u2 = 'client'%}
+				 <a  class="btn" href="{% url 'workout_done' workout.id %}" >
 	 	 		<input class="btn" type="button" style="font-family: sans-serif; font-size: 20px; color: Black;" value="Mark As Done"></a>
-				  
-				 
-				        {% endfor %}
+				{% endif %}
+				 {% endfor %}
 				        
 				 </div>
             </div>

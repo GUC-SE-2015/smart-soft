@@ -535,6 +535,7 @@ def mark_done(request, workout_id):
 def view_exercise(request, workout_id):
     #Grab selected workout from schedule
     workout =  Workout.objects.get(id = workout_id)
+    u2= request.user.user_info.type
     #Get all exercises belonging to this workout
     exercise = workout.exercise.all()
-    return render(request,'exercise.html', {'exercise':exercise, 'workout': workout} )
+    return render(request,'exercise.html', {'exercise':exercise, 'workout': workout, 'u2':u2} )
