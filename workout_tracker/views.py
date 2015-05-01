@@ -554,10 +554,10 @@ def stat(request):
         print "here"
     #to calculate the % of the workouts done.    
         result = 100*y/x
-        print 'resutl', result
+        return render(request,'stat.html',{'result':result})
     else:
         result = 0
-    return HttpResponse(result)
+    return render(request,'stat.html',{'result':result})
 
 #Done by Mirna Benyamine #42(edit profile) url:/update
 def update (request, u_id):
@@ -575,7 +575,7 @@ def edit_info(request, u_id):
     if request.POST:
       user.first_name = request.POST['firstname']
       user.last_name = request.POST['lastname']
-      #user.save()
+      user.save()
       user.set_password(request.POST['newpassword'])
 
 #if the loged user is a trainer, this extra information will appear to be edited
@@ -591,11 +591,9 @@ def edit_info(request, u_id):
       else:  
 #else if the loged user is a client, this extra information will appear to be edited 
         user.health_issues = request.POST['health_issues']
-        
-
+        user.save()
         user.weight = request.POST['weight'] 
-        
-
+        user.save()
         user.height = request.POST['height']
         user.save()
 #then it will retuen the updated client profile.
