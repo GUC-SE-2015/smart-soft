@@ -25,12 +25,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </body>
 </html> -->
 {% load staticfiles %}
-{% if user.is_authenticated %}
-<a href="/logout/">Logout</a>
-{% else %}
-<a href="/register/">Sign-Up</a>
-<a href="/login/">Login</a>
-{% endif %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -98,7 +92,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				        Password: <input type="password" name="password" value="" size="50" />
 				        <br/><br/><br/>
 				    	<input type="submit" name="Submit" class="button" value="Login"><div class="clear"></div>
-				    	<label for="modlgn_remember"><a href="#">Forget Your Password ? </a></label>
+				    	<label for="modlgn_remember"><a href="#">Forgot Your Password ? </a></label>
 						</div>
 						</fieldset>
 						</form>
