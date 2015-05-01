@@ -486,7 +486,7 @@ def add_goal(request):
     return render_to_response('add_goal.html', {'goal_form': goal_form}, context)               
               
 #Done by Marina #40           
-def add_goal(request, client_id):
+def add_goal_trainer(request, client_id):
     # Like before, get the request's context.
     context = RequestContext(request)
 
