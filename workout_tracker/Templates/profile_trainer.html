@@ -48,8 +48,10 @@
 		 <div class="h_menu4"><!-- start h_menu4 -->
 		   <a class="toggleMenu" href="#">Menu</a>
 			 <ul class="nav">
-			   <li class="active"><a href="#">Home</a></li>
-			   <li><a href="about.html">About</a></li>
+			   <li class="active"><a href="/">Home</a></li>
+			   {%if owner %}
+			   <li><a href="{% url 'edit_info' trainer.id %}">Edit Info</a></li>
+			   {% endif %}
 			   {% if not owner %}
 			   <li><a href="{% url 'follow' trainer.user.id %}" onclick="alert('Request Sent')">Follow Me</a></li>
 			   {% endif %}
@@ -72,9 +74,7 @@
 				   <p>My name is {{ trainer.user.first_name }} {{ trainer.user.last_name }}<br/> Email :{{trainer.user.email}} </br></br>
            Experience :{{trainer.experience}}</br></p>
 
-           {% if  not owner %}
-           <button type="button" href= "{% url 'follow' trainer.id %}" onclick="alert('Thank you')">Follow Me!</button>
-           {% endif %}
+           
 <!--           <script>
 function changeText()
 {

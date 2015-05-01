@@ -40,12 +40,10 @@
 			<a href="index.html"><img src="{% static 'images/logo.png' %}" alt=""/></a>
 		 </div>
 		 <div class="h_menu4"><!-- start h_menu4 -->
-		   <a class="toggleMenu" href="#">Menu</a>
+		   <a class="toggleMenu" href="/">Menu</a>
 			 <ul class="nav">
-			   <li class="active"><a href="#">Home</a></li>
-			   <li><a href="about.html">About</a></li>
-			   <li><a href="{% url 'client_workouts' %}">My Schedule</a></li>
-			   <li><a href="#">Profile</a></li>
+			   <li class="active"><a href="/">Home</a></li>
+			   
 			 </ul>
 			  <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
 		  </div><!-- end h_menu4 -->
@@ -67,11 +65,12 @@
 				 <font size="4.5" color="blue">Counts</font>: <font size="4" color="black">{{exercise.count}} /</font>
 				 <font size="4.5" color="blue">Laps</font> : <font size="4" color="black">{{exercise.lap}} / </font>
 				 <font size="4.5" color="blue">Weight</font> : <font size="4" color="black">{{exercise.weight}} </font> <br/>
+				
+				 {% endfor %}
 				 {% if u2 = 'client'%}
 				 <a  class="btn" href="{% url 'workout_done' workout.id %}" >
 	 	 		<input class="btn" type="button" style="font-family: sans-serif; font-size: 20px; color: Black;" value="Mark As Done"></a>
 				{% endif %}
-				 {% endfor %}
 				        
 				 </div>
             </div>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+  <style>
+  header{
+    text-align: left;
+  }
+[type=text], .register input[type=password] {
+  width: 65%;
+  font-family: "Lucida Grande","Lucida Sans Unicode",Tahoma,Sans-Serif;
+  padding: 5px;
+  font-size: 0.9em;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.07);
+}
+.register input[type=text]:focus, .register input[type=password]:focus {
+  background: #FFFFFF;
+}
+.register .button {
+  font-size: 1em;
+  border-radius: 8px;
+  padding: 10px;
+  
+  box-shadow: 0 1px 0 0 #60BD49 inset;
+  
+  background: -webkit-linear-gradient(#73E657, #42753f);
+ 
+ 
+}
+body {background-color: white
+}
+  </style>
+</head>
+<body>
+  <header>
+<div class="main">
+      <div class="one">
+        <div class="register">
+          <h3>Edit your Profile</h3>
+          <form id="reg-form" action="{% url "edit_info" u.id %}" method="post">{% csrf_token %}
+          
+            <div>
+              <label for="fisrtname">First Name</label>
+              <input type="text" name="firstname" spellcheck="false" 
+                     value="{{ u.first_name }}"/>
+            </div>
+            <div>
+            <label for="lastname">Last Name</label>
+              <input type="text" name="lastname" spellcheck="false"  value="{{ u.last_name }}"/>
+            </div>
+            
+            <div>
+              <label for="oldpassword">Old Password</label>
+              <input type="password" name="oldpassword" />
+            </div>
+            <div>
+              <label for="newpassword">New Password</label>
+              <input type="password" name="newpassword" />
+            </div>
+            <div>
+              <label for="password-again">Confirm Password</label>
+              <input type="password" name="password-again" />
+            </div>
+            
+            
+            
+            {% if u2.type == 'trainer'%}
+
+            <div>
+              <label for="phone">Phone</label>
+              <input type="text" name="phone" spellcheck="false" value="{{ u2.phone }}"/>
+            </div>
+            <div>
+              <label for="experience">Experience</label>
+              <input type="text" name="experience" spellcheck="false" value="{{ u2.experience }}"/>
+            </div>
+            <div>
+              <label for="education">Education</label>
+              <input type="text" name="education" spellcheck="false" value="{{ u2.education }}"/>
+            </div>
+            
+            {% endif %}
+
+            {% if u2.type == 'client'%}
+
+            <div>
+              <label for="health_issues">Health Issues</label>
+              <input type="text" name="health_issues" spellcheck="false" value="{{ u.user_info.health_issues }}"/>
+            </div>
+            
+            <div>
+              <label for="weight">Weight</label>
+              <input type="text" name="weight" spellcheck="false" value="{{ u2.weight }}"/>
+            </div>
+            
+            <div>
+              <label for="height">Height</label>
+              <input type="text" name="height" spellcheck="false" value="{{ u2.height }}"/>
+            </div>
+            
+            
+            {% endif %}
+            <div>
+              <label></label>
+              <input type="submit" value="SUBMIT"  class="button"/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </header>
+  </body>
