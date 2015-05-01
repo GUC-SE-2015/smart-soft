@@ -469,37 +469,38 @@ def add_workout(request):
     # Render the template depending on the context.
     return render_to_response('add_workout.html',{'workout_form': workout_form},context)               
 
-
+#Done by Mirna Benyamine #42(edit profile) url:/update
 def update (request, u_id):
+# to get the information of the loged user.    
     u=User.objects.filter(id=u_id)
     u2=UserInfo.objects.filter(user=u)
-    
+ #to return the html where the user will edit his information.   
     return render_to_response('update.html', {'u':u, 'u2': u2}, context_instance=RequestContext(request)) 
     
-         
+#Done by Mirna Benyamine #42(edit profile) url:/edit_info        
 def edit_info(request, u_id):
     user = request.user
     user_info = user.user_info
-
+#this will appear to both clients and trainers
     if request.POST:
       user.first_name = request.POST['firstname']
       user.last_name = request.POST['lastname']
       user.save()
       user.set_password(request.POST['newpassword'])
 
-
+#if the loged user is a trainer, this extra information will appear to be edited
       if user_info.type == 'trainer':
         user_info = user.user_info
         user_info.phone = request.POST['phone']
         user_info.experience = request.POST['experience']
         user_info.education = request.POST['education']
         user_info.save()
-
+#it will then return the updated trainer profile.
         return render_to_response('trainer_profile.html',{'user':user, 'trainer':user_info}, context_instance=RequestContext(request))
 
 
       else:  
-
+#else if the loged user is a client, this extra information will appear to be edited 
         user.health_issues = request.POST['health_issues']
         user.save()
 
@@ -508,7 +509,7 @@ def edit_info(request, u_id):
 
         user.height = request.POST['height']
         user.save()
-
+#then it will retuen the updated client profile.
       return render_to_response('client_profile.html',{'user':user, 'client':user_info}, context_instance=RequestContext(request))
 
     else: 
@@ -564,14 +565,17 @@ def add_exercise(request, workout_id ):
             },
             context)    
 
-
+#Done by Mirna Benyamine #41(show statistics) url:/stat
 def stat(request):
     user = request.user
+    #to get all the workout of the loged client.
     x=len(Workout.objects.filter(client=user.user_info))
+    #to get the done workouts of the loged client.
     y=len(Workout.objects.filter(done=True, client=user.user_info))
     print "y: ", y
     if x != 0:
         print "here"
+    #to calculate the % of the workouts done.    
         result = 100*y/x
         print 'resutl', result
     else:
