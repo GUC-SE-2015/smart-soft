@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from workout_tracker import views
+import notifications
 
 urlpatterns = patterns('',
     
@@ -32,4 +33,13 @@ urlpatterns = patterns('',
         url(r'^add_exercise/(?P<workout_id>\d+)$', views.add_exercise, name='add_exercise'),
         url(r'^view_exercise/(?P<workout_id>\d+)$', views.view_exercise, name='view_exercise')
         url('^inbox/notifications/', include(notifications.urls)),
+
+)
+urlpatterns = patterns('notifications.views',
+    url(r'^$', 'all', name='all'),
+    url(r'^unread/$', 'unread', name='unread'),
+    url(r'^mark-all-as-read/$', 'mark_all_as_read', name='mark_all_as_read'),
+    url(r'^mark-as-read/(?P<slug>\d+)/$', 'mark_as_read', name='mark_as_read'),
+    url(r'^mark-as-unread/(?P<slug>\d+)/$', 'mark_as_unread', name='mark_as_unread'),
+    url(r'^delete/(?P<slug>\d+)/$', 'delete', name='delete'),
 )
